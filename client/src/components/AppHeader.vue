@@ -1,18 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from '@/store'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const userStore = useUserStore()
+</script>
 
 <template>
   <header>
     <div class="tittle-bar">
       <div class="tittle-warper">
         <RouterLink to="/">
-          <img src="@/assets/images/logo.svg" class="go-back-icon" />
+          <el-icon class="go-back-icon"><HomeFilled /></el-icon>
         </RouterLink>
-        <div class="title">
-          <p>图书预约系统</p>
+        <div class="user-info" v-if="userStore.isLoggedIn">
+          <span>{{ userStore.username }}</span>
         </div>
-        <div class="user-info">
-          <RouterLink to="/login">登录</RouterLink>
-          <RouterLink to="/profile">个人中心</RouterLink>
+        <div class="user-info" v-else>
+          <el-button type="primary" @click="router.push('/login')" round>登录</el-button>
         </div>
       </div>
     </div>
@@ -33,44 +39,17 @@
 }
 
 .go-back-icon {
-  margin-top: 0.3rem;
-  height: 4rem;
-  vertical-align: middle;
-}
-
-.title {
-  color: #fff;
-  vertical-align: middle;
-
-  p {
-    font-size: 2rem;
-    font-weight: 500;
-  }
+  font-size: 3rem;
+  background-color: #fff;
+  color: #005826;
+  border-radius: 50%;
+  padding: 10px;
+  margin-right: 20px;
 }
 
 .user-info {
   color: #fff;
   margin-left: auto;
   font-size: 1.2rem;
-}
-
-@media screen and (max-width: 1080px) {
-  .tittle-bar {
-    height: 60px;
-  }
-
-  .tittle-warper {
-    margin: auto 10px;
-  }
-
-  .go-back-icon {
-    height: 3rem;
-  }
-
-  .title {
-    p {
-      font-size: 1.5rem;
-    }
-  }
 }
 </style>
