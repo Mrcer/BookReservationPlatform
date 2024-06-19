@@ -16,7 +16,7 @@ const books = ref([1, 2, 3, 4])
           <el-rate />
         </el-col>
         <el-col :span="4">
-          <el-button class="reserve-btn" type="primary" size="mini">预约</el-button>
+          <el-button class="reserve-btn" type="primary" size="large">预约</el-button>
         </el-col>
       </div>
     </div>
