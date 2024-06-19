@@ -38,6 +38,13 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: () => import('@/views/ProfileView.vue'),
+      children: [
+        {
+          path: 'general',
+          name: 'general',
+          component: () => import('@/components/Profile/General.vue'),
+        }
+      ]
       // TODO: 如果还没登陆，则跳转到登录页面
     },
     {
