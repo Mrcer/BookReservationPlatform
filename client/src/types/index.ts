@@ -2,6 +2,7 @@ import type { Failed } from '@element-plus/icons-vue'
 
 export interface BookData {
   id: number
+  cover: string
   title: string
   author: string
   publisher: string
@@ -9,6 +10,7 @@ export interface BookData {
   isbn: string
   location: string
   status: BookStatus
+  rating: number
 }
 
 export enum BookStatus {
