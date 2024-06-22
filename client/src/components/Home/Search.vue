@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { type SearchQuery } from '../type'
+import { type SearchQuery } from '@/types'
 
 const search_input = ref('')
 

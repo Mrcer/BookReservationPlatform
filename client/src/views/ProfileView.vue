@@ -1,6 +1,4 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="main">
@@ -13,9 +11,7 @@
       <div>
         <el-row :span="8">
           <el-menu default-active="1">
-            <el-menu-item index="1">
-              General
-            </el-menu-item>
+            <el-menu-item index="1">General</el-menu-item>
           </el-menu>
         </el-row>
         <el-row :span="16">
@@ -27,7 +23,6 @@
 </template>
 
 <style scoped>
-
 .main {
   display: flex;
   flex-direction: column;
@@ -45,5 +40,4 @@
   font-size: 4rem;
   font-weight: bold;
 }
-
 </style>

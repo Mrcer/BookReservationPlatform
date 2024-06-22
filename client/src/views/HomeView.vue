@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Search from '@/components/Home/Search.vue'
 import BookBrowser from '@/components/Home/BookBrowser.vue'
-import { type SearchQuery } from '@/components/type'
+import { type SearchQuery } from '@/types'
 </script>
 
 <template>
