@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Book from './Book.vue';
-import { getMockBookData } from '@/tests/mock/Book';
+import { getMockBookData } from '@/tests/mock/types/book';
 
 const books = ref([1, 2, 3, 4])
 </script>
