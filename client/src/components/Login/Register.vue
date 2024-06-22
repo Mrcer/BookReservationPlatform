@@ -20,7 +20,7 @@ const handleRegister = () => {
       </el-form-item>
       <el-form-item label="Name">
         <el-input v-model="registerForm.name" placeholder="Please enter your name" />
-      </el-form-item>      
+      </el-form-item>
       <el-form-item label="Password">
         <el-input
           v-model="registerForm.password"
