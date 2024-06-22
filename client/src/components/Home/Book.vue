@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { BookStatus, type BookData } from '@/types'
-import { ca, de } from 'element-plus/es/locales.mjs';
 import { computed, ref } from 'vue'
 
 const props = defineProps<{
@@ -22,7 +21,6 @@ const buttonText = computed(() => {
     return '无法借阅'
   }
 })
-
 </script>
 
 <template>
@@ -31,22 +29,26 @@ const buttonText = computed(() => {
       <el-image :src="book.cover" />
     </el-col>
     <el-col :span="16">
-      <RouterLink :to="{ name: 'detail', params: { id: props.book.id } }">
+      <RouterLink data-test="title-link" :to="{ name: 'detail', params: { id: props.book.id } }">
         <h2>{{ props.book.title }}</h2>
       </RouterLink>
-      <p>作者：{{ props.book.author }}</p>
-      <p>出版社：{{ props.book.publisher }}</p>
-      <p>出版日期：{{ props.book.publishDate }}</p>
-      <p>ISBN：{{ props.book.isbn }}</p>
-      <el-rate v-model="props.book.rating" show-score text-color="#ff9900" disabled/>
+      <p data-test="author">作者：{{ props.book.author }}</p>
+      <p data-test="publisher">出版社：{{ props.book.publisher }}</p>
+      <p data-test="publishDate">出版日期：{{ props.book.publishDate }}</p>
+      <p data-test="isbn">ISBN：{{ props.book.isbn }}</p>
+      <el-rate v-model="props.book.rating" show-score text-color="#ff9900" disabled />
     </el-col>
     <el-col :span="4">
       <el-button
+        data-test="reserve-btn"
         class="reserve-btn"
         type="primary"
         size="large"
         :disabled="!canBeReserved"
-        @click="$emit('reserve', props.book.id)">{{ buttonText }}</el-button>
+        @click="$emit('reserve', props.book.id)"
+      >
+        {{ buttonText }}
+      </el-button>
     </el-col>
   </el-row>
 </template>
