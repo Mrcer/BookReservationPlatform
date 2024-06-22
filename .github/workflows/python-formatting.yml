@@ -1,0 +1,54 @@
+name: Python Formatting 
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Install Ruff
+      run: pip install ruff
+
+    # 检查 server 目录是否存在
+    - name: Check for server directory
+      id: check_server_dir
+      run: |
+        if [ -d "./server" ]; then
+          echo "::set-output name=dir_exists::true"
+        else
+          echo "::set-output name=dir_exists::false"
+        fi
+
+    # 仅当 server 目录存在时运行 Ruff 格式化
+    - name: Run Ruff Format
+      if: steps.check_server_dir.outputs.dir_exists == 'true'
+      run: ruff format ./server/*.py
+
+    # 提交更改
+    - name: Commit and push if changed
+      if: steps.check_server_dir.outputs.dir_exists == 'true'
+      run: |
+        git config --local user.email "1257597350@qq.com"
+        git config --local user.name "GitHub Action"
+        if [ -n "$(git status --porcelain)" ]; then
+          git add .
+          git commit -m "Format Python code with Ruff"
+          git push origin HEAD:${{ github.ref }}
+        fi
