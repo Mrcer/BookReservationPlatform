@@ -44,6 +44,16 @@ const router = createRouter({
           name: 'general',
           component: () => import('@/components/Profile/General.vue'),
         },
+        {
+          path: 'reservations',
+          name:'reservations',
+          component: () => import('@/components/Profile/Reservations.vue'),
+        },
+        {
+          path: 'borrowed',
+          name: 'borrowed',
+          component: () => import('@/components/Profile/Borrowed.vue'),
+        }
       ],
       // TODO: 如果还没登陆，则跳转到登录页面
     },

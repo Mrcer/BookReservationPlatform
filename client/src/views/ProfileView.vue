@@ -1,23 +1,30 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from '@/store';
+import { RouterView } from 'vue-router';
+
+const user = useUserStore();
+
+</script>
 
 <template>
   <div class="main">
     <div class="container">
       <div>
-        <el-avatar :size="120" />
-        <span class="user-name">User</span>
+        <span class="user-name">{{ user.username }}</span>
       </div>
       <el-divider />
-      <div>
-        <el-row :span="8">
-          <el-menu default-active="1">
-            <el-menu-item index="1">General</el-menu-item>
+      <el-row>
+        <el-col :span="4">
+          <el-menu default-active="1" router>
+            <el-menu-item index="/profile/general">个人信息</el-menu-item>
+            <el-menu-item index="/profile/reservations">我的预约</el-menu-item>
+            <el-menu-item index="/profile/borrowed">我的借阅</el-menu-item>
           </el-menu>
-        </el-row>
-        <el-row :span="16">
+        </el-col>
+        <el-col :span="20">
           <RouterView />
-        </el-row>
-      </div>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>

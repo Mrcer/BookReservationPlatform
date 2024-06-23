@@ -41,6 +41,8 @@ export interface ReservationData {
   book_id: number
   reserved_date: string
   status: ReservationStatus
+  book_locaion: string
+  reservation_locaion: string
 }
 
 export enum ReservationStatus {
