@@ -1,32 +1,32 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import {createUser} from '../../service/user'
+import { register } from '../../service/user'
 import { ElMessageBox } from 'element-plus'
+import { UserRole } from '@/types'
 
 const registerForm = ref({
-  username:'', 
-  password:'', 
-  email:'', 
-  role:'',
+  username: '',
+  password: '',
+  email: '',
 })
 
 const message = ref('')
 
 const handleRegister = () => {
-
-  createUser(registerForm)
-  .then((res)=>{
-    if(res.data.status === 201){
-      message.value = res.data.value.message
-    }
-    else if(res.data.status === 400){
-      message.value = res.data.value.error
-    }
-    else{
-      console.log("Unknown status code")
-    }
-  })
-  .catch((err)=>{console.log(err)})
+  let form = registerForm.value
+  register(form.username, form.password, form.email, UserRole.Student)
+    .then((res) => {
+      if (res.data.status === 201) {
+        message.value = res.data.value.message
+      } else if (res.data.status === 400) {
+        message.value = res.data.value.error
+      } else {
+        console.log('Unknown status code')
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 
   ElMessageBox.alert(message.value, 'notion', {
     // if you want to disable its autofocus

@@ -3,6 +3,8 @@ const userUrl = {
   login: '/api/users/login',
   info: (id: number) => `/api/users/${id}`,
   credit: (id: number) => `/api/users/${id}/points`,
+  updateInfo: (id: number) => `/api/users/${id}`,
+  updateCredit: (id: number) => `/api/users/${id}/points`,
   add: '/api/admin/users',
   delete: (id: number) => `/api/admin/users/${id}`,
 }

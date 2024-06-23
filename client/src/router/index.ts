@@ -44,6 +44,16 @@ const router = createRouter({
           name: 'general',
           component: () => import('@/components/Profile/General.vue'),
         },
+        {
+          path: 'reservations',
+          name: 'reservations',
+          component: () => import('@/components/Profile/Reservations.vue'),
+        },
+        {
+          path: 'borrowed',
+          name: 'borrowed',
+          component: () => import('@/components/Profile/Borrowed.vue'),
+        },
       ],
       // TODO: 如果还没登陆，则跳转到登录页面
     },
@@ -51,6 +61,11 @@ const router = createRouter({
       path: '/search',
       name: 'search',
       component: () => import('@/views/SearchView.vue'),
+    },
+    {
+      path: '/reserve',
+      name: 'reserve',
+      component: () => import('@/views/ReserveView.vue'),
     },
   ],
 })

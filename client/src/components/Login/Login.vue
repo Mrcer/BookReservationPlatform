@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { userLogin } from '../../service/user'
+import { login } from '../../service/user'
 import { useUserStore } from '../../store/index'
+
+const userStore = useUserStore()
 
 const loginForm = ref({
   username: '',
@@ -9,8 +11,7 @@ const loginForm = ref({
 })
 
 const handleLogin = () => {
-  const userStore = useUserStore()
-  userLogin(loginForm.value, userStore)
+  login(loginForm.value.username, loginForm.value.password)
   console.log(userStore.isLoggedIn, userStore.uid, userStore.username)
 }
 </script>
