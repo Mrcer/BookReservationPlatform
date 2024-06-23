@@ -53,3 +53,25 @@ export enum ReservationStatus {
 export interface SearchQuery {
   keyword: string
 }
+
+export enum UserRole {
+  Student = 'student',
+  Teacher = 'teacher',
+  Admin = 'admin',
+}
+
+export interface RegisterForm {
+  username: string
+  email: string
+  password: string
+  role: UserRole
+}
+
+export interface UserInfo {
+  id: number
+  username: string
+  email: string
+  credit: number
+  registration_date: string
+  role: UserRole
+}
