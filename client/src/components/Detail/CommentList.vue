@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 
 const comments = ref(['aaa', 'bbb', 'ccc'])
+const props = defineProps<{
+  book_id : number
+}>()
 </script>
 
 <template>
