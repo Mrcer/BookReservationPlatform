@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useUserStore } from '@/store'
+import { UserRole } from '@/types'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -8,21 +9,27 @@ const userStore = useUserStore()
 </script>
 
 <template>
-  <header>
-    <div class="tittle-bar">
-      <div class="tittle-warper">
-        <RouterLink to="/">
-          <el-icon class="go-back-icon"><HomeFilled /></el-icon>
-        </RouterLink>
-        <div class="user-info" v-if="userStore.isLoggedIn">
-          <span>{{ userStore.username }}</span>
-        </div>
-        <div class="user-info" v-else>
-          <el-button type="primary" @click="router.push('/login')" round>登录</el-button>
-        </div>
+  <el-header class="tittle-bar">
+    <el-row class="tittle-warper">
+      <RouterLink to="/">
+        <el-icon class="go-back-icon">
+          <HomeFilled />
+        </el-icon>
+      </RouterLink>
+      <el-menu class="menu" mode="horizontal" router text-color="#fff" active-text-color="#fff">
+        <el-menu-item index="reserve">预约板块</el-menu-item>
+        <el-menu-item index="profile">用户主页</el-menu-item>
+        <!-- TODO: admin auth -->
+        <el-menu-item index="admin" v-if="false">管理页面</el-menu-item>
+      </el-menu>
+      <div class="user-info" v-if="userStore.isLoggedIn">
+        <span>{{ userStore.username }}</span>
       </div>
-    </div>
-  </header>
+      <div class="user-info" v-else>
+        <el-button type="primary" @click="router.push('/login')" round>登录</el-button>
+      </div>
+    </el-row>
+  </el-header>
 </template>
 
 <style scoped>
@@ -47,9 +54,20 @@ const userStore = useUserStore()
   margin-right: 20px;
 }
 
+.menu {
+  min-width: 60%;
+  background-color: #005826;
+}
+
 .user-info {
   color: #fff;
   margin-left: auto;
   font-size: 1.2rem;
+}
+
+@media (max-width: 1080px) {
+  .tittle-warper {
+    margin: auto 10px;
+  }
 }
 </style>
