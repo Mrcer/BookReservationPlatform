@@ -28,6 +28,10 @@ service.interceptors.response.use(
   function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
+    if(!error.response) {
+      console.log('无法连接服务器')
+      return Promise.reject(error)
+    }
     console.log('error' + error.response.status)
     switch (error.response.status) {
       case 404:
