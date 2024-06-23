@@ -7,6 +7,7 @@ import router from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import "./tests/mock/user"
 
 const pinia = createPinia()
 const app = createApp(App)
