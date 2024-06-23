@@ -1,3 +1,4 @@
+import { useUserStore } from '@/store'
 import axios from 'axios'
 
 // 创建axios实例
@@ -10,6 +11,10 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 在发送请求之前做些什么
+    let userStore = useUserStore()
+    if (userStore.token !== '') {
+      config.headers.Authorization = userStore.token
+    }
     return config
   },
   function (error) {
@@ -34,6 +39,9 @@ service.interceptors.response.use(
     }
     console.log('error' + error.response.status)
     switch (error.response.status) {
+      case 401:
+        console.error('请重新登录')
+        break
       case 404:
         console.error('当前路径有误')
         break
