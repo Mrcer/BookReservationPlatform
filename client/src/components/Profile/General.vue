@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useUserStore } from '@/store';
+import { useUserStore } from '@/store'
 
-const user = useUserStore();
-
+const user = useUserStore()
 </script>
 
 <template>
@@ -16,9 +15,7 @@ const user = useUserStore();
 </template>
 
 <style scoped>
-
 .warpper {
   padding: 20px;
 }
-
 </style>

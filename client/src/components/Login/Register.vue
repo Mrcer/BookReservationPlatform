@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { register } from '../../service/user'
 import { ElMessageBox } from 'element-plus'
-import { UserRole } from '@/types';
+import { UserRole } from '@/types'
 
 const registerForm = ref({
   username: '',

@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { useUserStore } from '@/store';
-import { RouterView } from 'vue-router';
+import { useUserStore } from '@/store'
+import { RouterView } from 'vue-router'
 
-const user = useUserStore();
-
+const user = useUserStore()
 </script>
 
 <template>

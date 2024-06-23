@@ -6,7 +6,11 @@ import ReservationCard from '@/components/Reserve/ReservationCard.vue'
   <div class="main">
     <div class="container">
       <ul>
-        <ReservationCard book-name="The Great Gatsby" book-location="New York" reservation-location="San Francisco" />
+        <ReservationCard
+          book-name="The Great Gatsby"
+          book-location="New York"
+          reservation-location="San Francisco"
+        />
       </ul>
     </div>
   </div>
