@@ -4,9 +4,12 @@ import BookBrowser from '@/components/Home/BookBrowser.vue'
 import { ref } from 'vue'
 import type { SearchQuery, BookData } from '@/types'
 import { search } from '@/service/book'
+import ReservationComfirm from '@/components/ReservationComfirm.vue'
 
 const searchResult = ref<BookData[]>([])
 const searched = ref(false)
+const showComfirm = ref(false)
+const comfirmBook = ref<BookData | null>(null)
 
 const handleSearch = (query: SearchQuery) => {
   search(query.keyword)
@@ -24,6 +27,12 @@ const handleSearch = (query: SearchQuery) => {
       }
     })
 }
+
+const handleReserve = (book: BookData) => {
+  showComfirm.value = true
+  comfirmBook.value = book
+}
+
 </script>
 
 <template>
@@ -34,7 +43,8 @@ const handleSearch = (query: SearchQuery) => {
     <Search @search="handleSearch" />
     <!-- <h2>推荐活动啥的，在搜索后隐藏</h2> -->
     <!-- 设计要求在这里嵌入的预约组件可能需要附着在某个按钮上，点击按钮后弹出预约组件 -->
-    <BookBrowser :books="searchResult" v-if="searched" />
+    <BookBrowser :books="searchResult" v-if="searched" @reserve="handleReserve"/>
+    <ReservationComfirm v-model="showComfirm" :book="comfirmBook"/>
   </div>
 </template>
 
