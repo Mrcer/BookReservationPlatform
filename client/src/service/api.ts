@@ -26,7 +26,7 @@ const reservationUrl = {
   submit: '/api/reservations',
   get: (rid: number) => `/api/reservations/${rid}`,
   getAllComfirmed: '/api/reservations/confirmed',
-  getUserReservations: (uid: number) => `/api/reservations/users/${uid}`,
+  getUserReservations: (uid: number) => `/api/reservations/user/${uid}`,
   cancel: (rid: number) => `/api/reservations/${rid}/cancel`,
   update: (rid: number) => `/api/reservations/${rid}`,
   delete: (rid: number) => `/api/reservations/${rid}`,
