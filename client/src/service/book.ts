@@ -48,7 +48,7 @@ export const search = async (query: string): Promise<BookData[]> => {
 
 // 获取图书状态
 export const getStatus = async (id: number) => {
-  let req = await service.get<{status: BookStatus}>(bookUrl['getStatus'](id))
+  let req = await service.get<{ status: BookStatus }>(bookUrl['getStatus'](id))
   return req.data.status
 }
 

@@ -24,6 +24,6 @@ export const useUserStore = defineStore('User', {
       this.email = infoRes.email
       this.credit = infoRes.credit
       this.registrationDate = infoRes.registration_date
-    }
+    },
   },
 })

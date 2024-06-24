@@ -12,23 +12,21 @@ const registerForm = ref({
 
 const message = ref('')
 
-const handleRegister = () => {
+const handleRegister = async () => {
   let form = registerForm.value
-  register(form.username, form.password, form.email, UserRole.Student)
+  let response = await register(form.username, form.password, form.email, UserRole.Student)
     .then((res) => {
-      if (res.data.status === 201) {
-        message.value = res.data.value.message
-      } else if (res.data.status === 400) {
-        message.value = res.data.value.error
+      return '注册成功！'
+    })
+    .catch((error_code) => {
+      if (error_code === 400) {
+        return '用户名已存在！'
       } else {
-        console.log('Unknown status code')
+        return '未知错误：' + error_code
       }
     })
-    .catch((err) => {
-      console.log(err)
-    })
-
-  ElMessageBox.alert(message.value, 'notion', {
+  message.value = response
+  ElMessageBox.alert(message.value, '提示', {
     // if you want to disable its autofocus
     // autofocus: false,
     confirmButtonText: 'OK',

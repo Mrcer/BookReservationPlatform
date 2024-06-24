@@ -10,9 +10,9 @@ const route = useRoute()
   <div>
     <h1>书籍详情页</h1>
     <p>当前书籍的id是：{{ route.params.id }}</p>
-    <Detail :book_id="parseInt(route.params.id[0])"/>
-    <CommentInput :book_id="parseInt(route.params.id[0])"/>
-    <CommentList :book_id="parseInt(route.params.id[0])"/>
+    <Detail :book_id="parseInt(route.params.id[0])" />
+    <CommentInput :book_id="parseInt(route.params.id[0])" />
+    <CommentList :book_id="parseInt(route.params.id[0])" />
   </div>
 </template>
 

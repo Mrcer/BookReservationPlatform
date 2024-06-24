@@ -1,0 +1,49 @@
+name: unitTests
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  # 后端 Python 测试
+  backend-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'  # 根据你的项目需求选择合适的 Python 版本
+
+    - name: Install Backend Dependencies
+      run: |
+        pip install -r server/requirements.txt  # 确保替换为你的依赖文件
+
+    - name: Run Backend Tests
+      run: |
+        python -m unittest discover -s server/tests -p '*_test.py'  # 调整路径和模式以匹配你的测试文件
+
+  # 前端 Vitest 测试
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'  # 根据你的项目需求选择合适的 Node.js 版本
+
+    - name: Install Frontend Dependencies
+      run: |
+        npm install vitest 
+      working-directory: client
+
+    - name: Run Frontend Tests
+      run: |
+        npm run test  # 运行 client 目录中的测试
+      working-directory: client
