@@ -13,7 +13,7 @@ service.interceptors.request.use(
     // 在发送请求之前做些什么
     let userStore = useUserStore()
     if (userStore.token !== '') {
-      config.headers.Authorization = userStore.token
+      config.headers.Authorization = 'Bearer ' + userStore.token
     }
     return config
   },

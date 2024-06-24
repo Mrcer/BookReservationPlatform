@@ -8,26 +8,35 @@ interface dbUser {
   username: string
   email: string
   points: number
-  registration_data: string
+  registration_date: string
   role: UserRole
 }
 
 // 注册用户
 const register = (username: string, password: string, email: string, role: UserRole) => {
-  return service.post(userUrl.register, {
-    username,
-    password,
-    email,
-    role,
-  })
+  return service
+    .post<{
+      message: string
+      userId: number
+    }>(userUrl.register, {
+      username,
+      password,
+      email,
+      role,
+    })
+    .catch((error) => {
+      console.log(error)
+      throw error.response.status as number
+    })
 }
 
 // 用户登录
 const login = async (username: string, password: string) => {
   let req = service.post<{
-    token: string,
-    userId: number,
-    role: UserRole}>(userUrl.login, {username,password})
+    token: string
+    userId: number
+    role: UserRole
+  }>(userUrl.login, { username, password })
   let serverData = (await req).data
   return serverData
 }
@@ -41,7 +50,7 @@ const getUserInfo = async (userId: number) => {
     username: serverData.username,
     email: serverData.email,
     credit: serverData.points,
-    registration_date: serverData.registration_data,
+    registration_date: serverData.registration_date,
     role: serverData.role,
   }
   return result
