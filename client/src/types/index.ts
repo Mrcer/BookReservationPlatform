@@ -23,11 +23,11 @@ export enum BookStatus {
 export interface ActivityData {
   activityId: number
   name: string
-  description: string,
-  start_time: string,
-  end_time: string,
-  location: string,
-  link: string,
+  description: string
+  start_time: string
+  end_time: string
+  location: string
+  link: string
 }
 
 export interface CommentData {

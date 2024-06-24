@@ -2,9 +2,8 @@
 import type { ActivityData } from '@/types'
 
 const props = defineProps<{
-    activities: ActivityData
+  activities: ActivityData
 }>()
-
 </script>
 
 <template>
@@ -13,5 +12,4 @@ const props = defineProps<{
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

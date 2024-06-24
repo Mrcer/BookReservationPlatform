@@ -6,7 +6,7 @@ import { useUserStore } from '../../store/index'
 const textarea = ref('')
 const rate = ref(0)
 const props = defineProps<{
-  book_id : number
+  book_id: number
 }>()
 const userStore = useUserStore()
 </script>
@@ -18,23 +18,25 @@ const userStore = useUserStore()
   </div>
   <div>
     <el-input
-    v-model="textarea"
-    maxlength="50"
-    style="width: 480px"
-    :rows="3"
-    type="textarea"
-    show-word-limit
-    placeholder="Please input"
+      v-model="textarea"
+      maxlength="50"
+      style="width: 480px"
+      :rows="3"
+      type="textarea"
+      show-word-limit
+      placeholder="Please input"
     />
     <el-button
-        data-test="reserve-btn"
-        class="reserve-btn"
-        type="primary"
-        size="large"
-        @click="sendComment({userId: userStore.uid, bookId: book_id, content: textarea, rating: rate})"
-        >
-            {{ "发送" }}
-        </el-button>
+      data-test="reserve-btn"
+      class="reserve-btn"
+      type="primary"
+      size="large"
+      @click="
+        sendComment({ userId: userStore.uid, bookId: book_id, content: textarea, rating: rate })
+      "
+    >
+      {{ '发送' }}
+    </el-button>
   </div>
 </template>
 

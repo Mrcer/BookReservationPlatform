@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import Book from './Book.vue'
-import type { BookData } from '@/types';
+import type { BookData } from '@/types'
 
 const props = defineProps<{
   books: BookData[]
 }>()
-
 </script>
 
 <template>
