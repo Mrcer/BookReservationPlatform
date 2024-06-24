@@ -37,8 +37,8 @@ class BookTestCase(unittest.TestCase):
                 with open(image_path, 'rb') as image_file:
                     return image_file.read()
             
-            book1_image = get_book('tests/img.jpg')
-            book2_image = get_book('tests/img.jpg')
+            book1_image = get_book('img.jpg')
+            book2_image = get_book('img.jpg')
 
             # 添加书籍
             book1 = Book(

@@ -62,9 +62,9 @@ class Reservation(db.Model):
 
     def to_dict(self):
         return {
-            'reservation_id': self.reservation_id,
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'reservationId': self.reservation_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'reservation_date': self.reservation_date.isoformat(),
             'status': self.status,
             'book_location': self.book_location,
@@ -86,9 +86,9 @@ class Review(db.Model):
 
     def to_dict(self):
         return {
-            'review_id': self.review_id,
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'reviewId': self.review_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'content': self.content,
             'rating': self.rating,
             'review_date': self.review_date.isoformat()
@@ -104,8 +104,8 @@ class Score(db.Model):
 
     def to_dict(self):
         return {
-            'score_id': self.score_id,
-            'user_id': self.user_id,
+            'scoreId': self.score_id,
+            'userId': self.user_id,
             'points': self.points,
             'change_date': self.change_date.isoformat(),
             'description': self.description
