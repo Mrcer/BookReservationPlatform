@@ -38,13 +38,13 @@ onMounted(async () => {
         bookName: bookInfo.title,
         bookLocation: reservation.book_location,
         reservationLocation: reservation.reservation_location,
-        reservationTime: reservation.reserved_date,
+        reservationTime: reservation.reservation_date,
       }
       reservationCardData.value.push(data)
     })
   )
   reservationsData.sort(
-    (a, b) => new Date(a.reserved_date).getTime() - new Date(b.reserved_date).getTime()
+    (a, b) => new Date(a.reservation_date).getTime() - new Date(b.reservation_date).getTime()
   )
   isLoaded.value = true
 })
