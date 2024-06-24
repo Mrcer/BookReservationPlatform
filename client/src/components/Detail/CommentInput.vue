@@ -18,11 +18,24 @@ const userStore = useUserStore()
       <el-rate v-model="rate" show-score text-color="#ff9900" />
     </div>
     <div>
-      <el-input v-model="textarea" maxlength="50" style="width: 480px" :rows="3" type="textarea" show-word-limit
-        placeholder="Please input" />
-      <el-button data-test="reserve-btn" class="reserve-btn" type="primary" size="large" @click="
-        sendComment({ userId: userStore.uid, bookId: book_id, content: textarea, rating: rate })
-        ">
+      <el-input
+        v-model="textarea"
+        maxlength="50"
+        style="width: 480px"
+        :rows="3"
+        type="textarea"
+        show-word-limit
+        placeholder="Please input"
+      />
+      <el-button
+        data-test="reserve-btn"
+        class="reserve-btn"
+        type="primary"
+        size="large"
+        @click="
+          sendComment({ userId: userStore.uid, bookId: book_id, content: textarea, rating: rate })
+        "
+      >
         {{ '发送' }}
       </el-button>
     </div>

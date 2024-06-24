@@ -32,7 +32,6 @@ const handleReserve = (book: BookData) => {
   showComfirm.value = true
   comfirmBook.value = book
 }
-
 </script>
 
 <template>
@@ -43,8 +42,8 @@ const handleReserve = (book: BookData) => {
     <Search @search="handleSearch" />
     <!-- <h2>推荐活动啥的，在搜索后隐藏</h2> -->
     <!-- 设计要求在这里嵌入的预约组件可能需要附着在某个按钮上，点击按钮后弹出预约组件 -->
-    <BookBrowser :books="searchResult" v-if="searched" @reserve="handleReserve"/>
-    <ReservationComfirm v-model="showComfirm" :book="comfirmBook"/>
+    <BookBrowser :books="searchResult" v-if="searched" @reserve="handleReserve" />
+    <ReservationComfirm v-model="showComfirm" :book="comfirmBook" />
   </div>
 </template>
 

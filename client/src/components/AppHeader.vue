@@ -17,10 +17,16 @@ const userStore = useUserStore()
         </el-icon>
       </RouterLink>
       <el-menu class="menu" mode="horizontal" text-color="#fff" active-text-color="#fff">
-        <el-menu-item index="reserve" v-if="userStore.isLoggedIn" @click="router.push('/reserve')">预约板块</el-menu-item>
-        <el-menu-item index="profile" v-if="userStore.isLoggedIn" @click="router.push('/profile')">用户主页</el-menu-item>
+        <el-menu-item index="reserve" v-if="userStore.isLoggedIn" @click="router.push('/reserve')">
+          预约板块
+        </el-menu-item>
+        <el-menu-item index="profile" v-if="userStore.isLoggedIn" @click="router.push('/profile')">
+          用户主页
+        </el-menu-item>
         <!-- TODO: admin auth -->
-        <el-menu-item index="admin" v-if="false" @click="router.push('/admin')">管理页面</el-menu-item>
+        <el-menu-item index="admin" v-if="false" @click="router.push('/admin')">
+          管理页面
+        </el-menu-item>
       </el-menu>
       <div class="user-info" v-if="userStore.isLoggedIn">
         <span>{{ userStore.username }}</span>

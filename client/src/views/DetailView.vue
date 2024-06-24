@@ -9,8 +9,8 @@ const route = useRoute()
 <template>
   <div class="main">
     <div>
-      <Detail :book_id="parseInt(route.params.id[0])" style="margin-bottom: 4rem;" />
-      <CommentInput :book_id="parseInt(route.params.id[0])" style="margin-bottom: 2rem;" />
+      <Detail :book_id="parseInt(route.params.id[0])" style="margin-bottom: 4rem" />
+      <CommentInput :book_id="parseInt(route.params.id[0])" style="margin-bottom: 2rem" />
       <CommentList :book_id="parseInt(route.params.id[0])" />
     </div>
   </div>
