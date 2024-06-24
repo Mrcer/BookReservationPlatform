@@ -16,7 +16,6 @@ const location = ref('')
 const handleConfirm = async () => {
   let message
   if(user.isLoggedIn) {
-    console.log(user.uid, props.book!.id, location.value)
     message = await submitReservation(user.uid, props.book!.id, location.value)
       .then((res) => {
         return '预约成功'
