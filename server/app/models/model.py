@@ -9,7 +9,7 @@ class User(db.Model):
     username = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    points = db.Column(db.Integer, default=0)
+    points = db.Column(db.Integer, default=10)
     registration_date = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp())
     role = db.Column(db.String(20), nullable=False)
     __table_args__ = (

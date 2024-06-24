@@ -13,7 +13,7 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    points INT DEFAULT 0,
+    points INT DEFAULT 10,
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     role TEXT CHECK(role IN ('student', 'teacher', 'admin')) NOT NULL
 )
@@ -95,6 +95,7 @@ cursor.execute('''INSERT INTO users (username, password, email, role) VALUES (?,
                ('teacher_user', hashed_password, 'teacher@example.com', 'teacher'))
 cursor.execute('''INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)''',
                ('admin_user', hashed_password, 'admin@example.com', 'admin'))
+
 
 book_pth = 'app/utils/books/book_information.txt'
 f = open(book_pth, 'r', encoding='utf-8')
