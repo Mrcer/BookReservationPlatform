@@ -38,7 +38,7 @@ const buttonText = computed(() => {
       <p data-test="publishDate">出版日期：{{ props.book.publishDate }}</p>
       <p data-test="isbn">ISBN：{{ props.book.isbn }}</p>
       <el-rate v-model="props.book.rating" show-score text-color="#ff9900" disabled v-if="props.book.rating != -1"/>
-      <el-rate model-value="0" disabled v-else/>
+      <el-rate :model-value="0" disabled v-else/>
       <span style="color: #999;">暂无评分</span>
     </el-col>
     <el-col :span="4">
@@ -48,7 +48,7 @@ const buttonText = computed(() => {
         type="primary"
         size="large"
         :disabled="!canBeReserved"
-        @click="$emit('reserve', props.book.id)"
+        @click="$emit('reserve')"
       >
         {{ buttonText }}
       </el-button>

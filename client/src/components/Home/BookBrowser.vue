@@ -5,13 +5,16 @@ import type { BookData } from '@/types'
 const props = defineProps<{
   books: BookData[]
 }>()
+
+defineEmits(['reserve'])
+
 </script>
 
 <template>
   <div class="container">
     <h1>搜索结果</h1>
     <div class="result-container" v-for="book in props.books" :key="book.id">
-      <Book :book="book" />
+      <Book :book="book" @reserve="$emit('reserve', book)"/>
     </div>
     <div v-if="props.books.length === 0">
       <p>没有搜索结果</p>
