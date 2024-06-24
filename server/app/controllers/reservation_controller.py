@@ -10,8 +10,8 @@ reservation_bp = Blueprint('reservation_bp', __name__)
 @jwt_required()
 def add_reservation():
     data = request.get_json()
-    user_id = data.get('user_id')
-    book_id = data.get('book_id')
+    user_id = data.get('userId')
+    book_id = data.get('bookId')
     reservation_location = data.get('reservation_location')
 
     current_user_id = get_jwt_identity()

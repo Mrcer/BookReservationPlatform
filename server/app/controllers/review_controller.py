@@ -12,8 +12,8 @@ review_bp = Blueprint('review_bp', __name__)
 @jwt_required()
 def add_review():
     data = request.get_json()
-    user_id = data.get('user_id')
-    book_id = data.get('book_id')
+    user_id = data.get('userId')
+    book_id = data.get('bookId')
     content = data.get('content')
     rating = data.get('rating')
 

@@ -11,7 +11,7 @@ score_bp = Blueprint('score_bp', __name__)
 def add_score():
     try:
         data = request.get_json()
-        user_id = data.get('user_id')
+        user_id = data.get('userId')
         points = data.get('points')
         description = data.get('description')
 

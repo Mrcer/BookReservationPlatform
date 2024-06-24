@@ -107,7 +107,7 @@ def update_book_borrow(book_id):
         return jsonify({'error':'Unauthorized'}), 401
 
     data = request.get_json()
-    user_id = data.get("user_id")
+    user_id = data.get("userId")
     result = update_book_borrow_service(book_id, user_id)
     if 'error' in result:
         return jsonify(result), 404
