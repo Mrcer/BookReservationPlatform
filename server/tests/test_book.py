@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 # 添加项目根目录到Python路径
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from app import create_app, db
+from app import create_app_test, db
 from app.models.model import *
 from datetime import date
 
@@ -18,7 +18,7 @@ class BookTestCase(unittest.TestCase):
     
 
     def setUp(self):
-        self.app = create_app()
+        self.app = create_app_test()
         self.client = self.app.test_client()
         with self.app.app_context():
             db.create_all()
