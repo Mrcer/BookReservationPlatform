@@ -3,7 +3,7 @@ from . import reservation_points
 
 class ReservationService:
     @staticmethod
-    def add_reservation(user_id, book_id, status, book_location, reservation_location):
+    def add_reservation(user_id, book_id, reservation_location):
         book = Book.query.get(book_id)
         # if book.status != 'available':
         if book.status in ('borrowed', 'damaged'):
@@ -14,6 +14,8 @@ class ReservationService:
         book.status = 'reserved'
         book.reservation_count += 1
         db.session.commit()
+        status = "confirmed"
+        book_location = book.location
         new_reservation = Reservation(
             user_id=user_id,
             book_id=book_id,

@@ -38,8 +38,6 @@ class ReservationTestCase(unittest.TestCase):
         response = self.client.post('/api/reservations', json={
             'user_id': self.user_id,
             'book_id': self.book_id,
-            'status': 'confirmed',
-            'book_location': 'Library',
             'reservation_location': 'Online',
         },headers={'Authorization': f'Bearer {self.stu_token}'})
         self.assertEqual(response.status_code, 201)

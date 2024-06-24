@@ -12,8 +12,6 @@ def add_reservation():
     data = request.get_json()
     user_id = data.get('user_id')
     book_id = data.get('book_id')
-    status = data.get('status')
-    book_location = data.get('book_location')
     reservation_location = data.get('reservation_location')
 
     current_user_id = get_jwt_identity()
@@ -22,7 +20,7 @@ def add_reservation():
         return jsonify({'error': 'Unauthorized'}), 401
 
     try:
-        new_reservation = ReservationService.add_reservation(user_id, book_id, status, book_location, reservation_location)
+        new_reservation = ReservationService.add_reservation(user_id, book_id, reservation_location)
         if not new_reservation:
             return jsonify({"error": "Book not available for reservation"}), 404
 
