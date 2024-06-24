@@ -1,6 +1,6 @@
 import sqlite3
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask,request, jsonify
+from flask import Flask, request, jsonify
 import os
 from abc import ABC, abstractmethod
 from sqlalchemy.inspection import inspect
@@ -16,9 +16,11 @@ import base64
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
-CORS(app) #允许跨域名访问
+CORS(app)  # 允许跨域名访问
 # 配置 SQLAlchemy，指向本地 SQLite 数据库文件
-app.config['SQLALCHEMY_DATABASE_URI']= "sqlite:///" + os.path.join(basedir, 'database.sqlite')
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
+    basedir, "database.sqlite"
+)
 # 用于指示是否追踪对象的修改并发送信号给 Flask 应用程序
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # 设置 Flask 应用的密钥，用于保持客户端会话的安全
@@ -26,9 +28,10 @@ app.config["SECRET_KEY"] = "major"
 
 db = SQLAlchemy(app)
 
+
 # 定义数据库模型
 class dbBook(db.Model):
-    __tablename__ = 'Book'
+    __tablename__ = "Book"
     book_id = db.Column(db.String(8), primary_key=True)
     book_name = db.Column(db.String(100))
     book_image = db.Column(db.LargeBinary(length=65536))
@@ -41,7 +44,7 @@ class dbBook(db.Model):
 
 
 class dbStudentAccount(db.Model):
-    __tablename__ = 'StudentAccount'
+    __tablename__ = "StudentAccount"
     net_id = db.Column(db.String(8), primary_key=True)
     name = db.Column(db.String(100))
     gain = db.Column(db.Integer)
@@ -49,7 +52,7 @@ class dbStudentAccount(db.Model):
 
 
 class dbTeacherAccount(db.Model):
-    __tablename__ = 'TeacherAccount'
+    __tablename__ = "TeacherAccount"
     net_id = db.Column(db.String(8), primary_key=True)
     name = db.Column(db.String(100))
     real_name = db.Column(db.String(100))
@@ -58,7 +61,7 @@ class dbTeacherAccount(db.Model):
 
 
 class dbAdminAccount(db.Model):
-    __tablename__ = 'AdminAccount'
+    __tablename__ = "AdminAccount"
     net_id = db.Column(db.String(8), primary_key=True)
     name = db.Column(db.String(100))
     gain = db.Column(db.Integer)
@@ -67,7 +70,7 @@ class dbAdminAccount(db.Model):
 
 
 class dbComment(db.Model):
-    __tablename__ = 'Comment'
+    __tablename__ = "Comment"
     net_id = db.Column(db.String(8), primary_key=True)
     book_id = db.Column(db.String(8), primary_key=True)
     comment = db.Column(db.String(1000))
@@ -75,19 +78,21 @@ class dbComment(db.Model):
     time = db.Column(db.Float)
 
     def as_dict(self):
-       return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
+        return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
 
 
 class dbReservationBook(db.Model):
-    __tablename__ = 'ReservationBook'
+    __tablename__ = "ReservationBook"
     net_id = db.Column(db.String(8), primary_key=True)
     book_id = db.Column(db.String(8), primary_key=True)
     time = db.Column(db.Float)
+
     def as_dict(self):
         return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
 
+
 class dbBorrowBook(db.Model):
-    __tablename__ = 'BorrowBook'
+    __tablename__ = "BorrowBook"
     net_id = db.Column(db.String(8), primary_key=True)
     book_id = db.Column(db.String(8), primary_key=True)
     time = db.Column(db.DateTime)
@@ -99,12 +104,12 @@ class DataBase:
         self.app = app
         self.db = db
 
+
 def insert_account(account_data, account_class):
     account = account_class(**json.loads(account_data))
     db.session.add(account)
     db.session.commit()
-    return {'message': 'Account created successfully'}
-
+    return {"message": "Account created successfully"}
 
 
 # 通用功能，用于获取账户信息
@@ -112,20 +117,24 @@ def get_account(net_id, account_class):
     account = account_class.query.filter_by(net_id=net_id).first()
     if account:
         return {
-            'net_id': account.net_id,
-            'name': account.name,
-            'real_name': getattr(account, 'real_name', None),
-            'gain': account.gain,
-            'password': account.password
+            "net_id": account.net_id,
+            "name": account.name,
+            "real_name": getattr(account, "real_name", None),
+            "gain": account.gain,
+            "password": account.password,
         }
     else:
-        return {'message': 'Account not found'}, 404
+        return {"message": "Account not found"}, 404
+
 
 # 通用功能，用于更新账户信息
 def update_account(net_id, update_content, account_class):
-    account = account_class.query.filter_by(net_id=net_id).update(json.loads(update_content))
+    account = account_class.query.filter_by(net_id=net_id).update(
+        json.loads(update_content)
+    )
     db.session.commit()
-    return {'message': 'Account updated successfully'}
+    return {"message": "Account updated successfully"}
+
 
 # 通用功能，用于删除账户信息
 def delete_account(net_id, account_class):
@@ -133,37 +142,39 @@ def delete_account(net_id, account_class):
     if account:
         db.session.delete(account)
         db.session.commit()
-        return {'message': 'Account deleted successfully'}
+        return {"message": "Account deleted successfully"}
     else:
-        return {'message': 'Account not found'}, 404
+        return {"message": "Account not found"}, 404
+
 
 # 通用功能，用于删除账户信息
 def generic_insert(args, model):
     item = model(**json.loads(args))
     db.session.add(item)
     db.session.commit()
-    return {'message': 'Item created successfully'}
+    return {"message": "Item created successfully"}
+
 
 def generic_get(net_id, book_id, model):
     item = model.query.filter_by(net_id=net_id, book_id=book_id).first()
     if item:
         return item.as_dict()
     else:
-        return {'message': 'Item not found'}, 404
+        return {"message": "Item not found"}, 404
+
 
 def generic_delete(net_id, book_id, model):
     item = model.query.filter_by(net_id=net_id, book_id=book_id).first()
     if item:
         db.session.delete(item)
         db.session.commit()
-        return {'message': 'Item deleted successfully'}
+        return {"message": "Item deleted successfully"}
     else:
-        return {'message': 'Item not found'}, 404
-
+        return {"message": "Item not found"}, 404
 
 
 # RESTful API 端点定义，用于创建、获取、更新和删除学生账户
-@app.route('/account/student', methods=['POST'])
+@app.route("/account/student", methods=["POST"])
 def create_student_account():
     """
     创建学生账户的API端点。
@@ -188,7 +199,8 @@ def create_student_account():
     """
     return jsonify(insert_account(request.data, dbStudentAccount))
 
-@app.route('/account/student/<net_id>', methods=['GET'])
+
+@app.route("/account/student/<net_id>", methods=["GET"])
 def get_student_account(net_id):
     """
     获取指定学生账户信息的API端点。
@@ -211,7 +223,8 @@ def get_student_account(net_id):
     """
     return jsonify(get_account(net_id, dbStudentAccount))
 
-@app.route('/account/student/<net_id>', methods=['PUT'])
+
+@app.route("/account/student/<net_id>", methods=["PUT"])
 def update_student_account(net_id):
     """
     更新指定学生账户信息的API端点。
@@ -236,7 +249,8 @@ def update_student_account(net_id):
     """
     return jsonify(update_account(net_id, request.data, dbStudentAccount))
 
-@app.route('/account/student/<net_id>', methods=['DELETE'])
+
+@app.route("/account/student/<net_id>", methods=["DELETE"])
 def delete_student_account(net_id):
     """
     删除指定学生账户的API端点。
@@ -257,7 +271,7 @@ def delete_student_account(net_id):
 
 
 # RESTful API 端点定义，用于创建、获取、更新和删除教师账户
-@app.route('/account/teacher', methods=['POST'])
+@app.route("/account/teacher", methods=["POST"])
 def create_teacher_account():
     """
     创建教师账户的API端点。
@@ -283,7 +297,8 @@ def create_teacher_account():
     """
     return jsonify(insert_account(request.data, dbTeacherAccount))
 
-@app.route('/account/teacher/<net_id>', methods=['GET'])
+
+@app.route("/account/teacher/<net_id>", methods=["GET"])
 def get_teacher_account(net_id):
     """
     获取指定教师账户信息的API端点。
@@ -306,7 +321,8 @@ def get_teacher_account(net_id):
     """
     return jsonify(get_account(net_id, dbTeacherAccount))
 
-@app.route('/account/teacher/<net_id>', methods=['PUT'])
+
+@app.route("/account/teacher/<net_id>", methods=["PUT"])
 def update_teacher_account(net_id):
     """
     更新指定教师账户信息的API端点。
@@ -331,7 +347,8 @@ def update_teacher_account(net_id):
     """
     return jsonify(update_account(net_id, request.data, dbTeacherAccount))
 
-@app.route('/account/teacher/<net_id>', methods=['DELETE'])
+
+@app.route("/account/teacher/<net_id>", methods=["DELETE"])
 def delete_teacher_account(net_id):
     """
     删除指定教师账户的API端点。
@@ -352,7 +369,7 @@ def delete_teacher_account(net_id):
 
 
 # RESTful API 端点定义，用于创建、获取、更新和删除管理员账户
-@app.route('/account/admin', methods=['POST'])
+@app.route("/account/admin", methods=["POST"])
 def create_admin_account():
     """
     创建管理员账户的API端点。
@@ -378,7 +395,8 @@ def create_admin_account():
     """
     return jsonify(insert_account(request.data, dbAdminAccount))
 
-@app.route('/account/admin/<net_id>', methods=['GET'])
+
+@app.route("/account/admin/<net_id>", methods=["GET"])
 def get_admin_account(net_id):
     """
     获取指定管理员账户信息的API端点。
@@ -401,7 +419,8 @@ def get_admin_account(net_id):
     """
     return jsonify(get_account(net_id, dbAdminAccount))
 
-@app.route('/account/admin/<net_id>', methods=['PUT'])
+
+@app.route("/account/admin/<net_id>", methods=["PUT"])
 def update_admin_account(net_id):
     """
     更新指定管理员账户信息的API端点。
@@ -426,7 +445,8 @@ def update_admin_account(net_id):
     """
     return jsonify(update_account(net_id, request.data, dbAdminAccount))
 
-@app.route('/account/admin/<net_id>', methods=['DELETE'])
+
+@app.route("/account/admin/<net_id>", methods=["DELETE"])
 def delete_admin_account(net_id):
     """
     删除指定管理员账户的API端点。
@@ -447,7 +467,7 @@ def delete_admin_account(net_id):
 
 
 # 评论 API
-@app.route('/comments', methods=['POST'])
+@app.route("/comments", methods=["POST"])
 def create_comment():
     """
     创建评论的API端点。
@@ -473,7 +493,8 @@ def create_comment():
     """
     return jsonify(generic_insert(request.data, dbComment))
 
-@app.route('/comments/<net_id>/<book_id>', methods=['GET'])
+
+@app.route("/comments/<net_id>/<book_id>", methods=["GET"])
 def get_comment(net_id, book_id):
     """
     获取指定用户对指定图书的评论信息的API端点。
@@ -497,7 +518,8 @@ def get_comment(net_id, book_id):
     """
     return jsonify(generic_get(net_id, book_id, dbComment))
 
-@app.route('/comments/<net_id>/<book_id>', methods=['DELETE'])
+
+@app.route("/comments/<net_id>/<book_id>", methods=["DELETE"])
 def delete_comment(net_id, book_id):
     """
     删除指定用户对指定图书的评论的API端点。
@@ -517,8 +539,9 @@ def delete_comment(net_id, book_id):
     """
     return jsonify(generic_delete(net_id, book_id, dbComment))
 
+
 # 预约 API
-@app.route('/reservations', methods=['POST'])
+@app.route("/reservations", methods=["POST"])
 def create_reservation():
     """
     创建预约的API端点。
@@ -542,7 +565,8 @@ def create_reservation():
     """
     return jsonify(generic_insert(request.data, dbReservationBook))
 
-@app.route('/reservations/<net_id>/<book_id>', methods=['GET'])
+
+@app.route("/reservations/<net_id>/<book_id>", methods=["GET"])
 def get_reservation(net_id, book_id):
     """
     获取指定用户对指定图书的预约信息的API端点。
@@ -564,7 +588,8 @@ def get_reservation(net_id, book_id):
     """
     return jsonify(generic_get(net_id, book_id, dbReservationBook))
 
-@app.route('/reservations/<net_id>/<book_id>', methods=['DELETE'])
+
+@app.route("/reservations/<net_id>/<book_id>", methods=["DELETE"])
 def delete_reservation(net_id, book_id):
     """
     删除指定用户对指定图书的预约的API端点。
@@ -584,8 +609,9 @@ def delete_reservation(net_id, book_id):
     """
     return jsonify(generic_delete(net_id, book_id, dbReservationBook))
 
+
 # 借书api
-@app.route('/borrowbook', methods=['POST'])
+@app.route("/borrowbook", methods=["POST"])
 def create_borrow_book():
     """
     创建借书记录的 API 端点。
@@ -608,17 +634,20 @@ def create_borrow_book():
     如果请求体数据不完整或格式不正确，将返回400错误。
     """
     data = request.get_json()
-    net_id = data['net_id']
-    book_id = data['book_id']
-    time_str = data['time']
-    time = datetime.fromisoformat(time_str.replace('Z', '+00:00'))  # Correct parsing of ISO 8601 strings
+    net_id = data["net_id"]
+    book_id = data["book_id"]
+    time_str = data["time"]
+    time = datetime.fromisoformat(
+        time_str.replace("Z", "+00:00")
+    )  # Correct parsing of ISO 8601 strings
 
     borrow_book = dbBorrowBook(net_id=net_id, book_id=book_id, time=time)
     db.session.add(borrow_book)
     db.session.commit()
-    return jsonify({'message': 'Borrow book record created successfully'}), 201
+    return jsonify({"message": "Borrow book record created successfully"}), 201
 
-@app.route('/borrowbook/<net_id>/<book_id>', methods=['GET'])
+
+@app.route("/borrowbook/<net_id>/<book_id>", methods=["GET"])
 def get_borrow_book(net_id, book_id):
     """
     获取指定用户对指定图书的借书记录的 API 端点。
@@ -640,14 +669,17 @@ def get_borrow_book(net_id, book_id):
     """
     borrow_book = dbBorrowBook.query.filter_by(net_id=net_id, book_id=book_id).first()
     if borrow_book:
-        return jsonify({
-            'net_id': borrow_book.net_id,
-            'book_id': borrow_book.book_id,
-            'time': borrow_book.time
-        })
-    return jsonify({'message': 'Borrow book record not found'}), 404
+        return jsonify(
+            {
+                "net_id": borrow_book.net_id,
+                "book_id": borrow_book.book_id,
+                "time": borrow_book.time,
+            }
+        )
+    return jsonify({"message": "Borrow book record not found"}), 404
 
-@app.route('/borrowbook/<net_id>/<book_id>', methods=['DELETE'])
+
+@app.route("/borrowbook/<net_id>/<book_id>", methods=["DELETE"])
 def delete_borrow_book(net_id, book_id):
     """
     删除指定用户对指定图书的借书记录的 API 端点。
@@ -669,11 +701,12 @@ def delete_borrow_book(net_id, book_id):
     if borrow_book:
         db.session.delete(borrow_book)
         db.session.commit()
-        return jsonify({'message': 'Borrow book record deleted successfully'})
-    return jsonify({'message': 'Borrow book record not found'}), 404
+        return jsonify({"message": "Borrow book record deleted successfully"})
+    return jsonify({"message": "Borrow book record not found"}), 404
+
 
 # 书的相关操作api
-@app.route('/books', methods=['POST'])
+@app.route("/books", methods=["POST"])
 def create_book():
     """
     创建书籍记录的 API 端点。
@@ -704,30 +737,31 @@ def create_book():
     data = request.get_json()
     try:
         # If book_image is a base64 string, decode it
-        if data['book_image']:
-            book_image = base64.b64decode(data['book_image'])
+        if data["book_image"]:
+            book_image = base64.b64decode(data["book_image"])
         else:
             book_image = None
 
         book = dbBook(
-            book_id=data['book_id'], 
-            book_name=data['book_name'], 
+            book_id=data["book_id"],
+            book_name=data["book_name"],
             book_image=book_image,  # Use the binary data
-            book_author=data['book_author'], 
-            book_location=data['book_location'], 
-            book_score=data['book_score'],
-            book_storage=data['book_storage'], 
-            book_reservation_time=data['book_reservation_time'],
-            book_reservation_location=data['book_reservation_location']
+            book_author=data["book_author"],
+            book_location=data["book_location"],
+            book_score=data["book_score"],
+            book_storage=data["book_storage"],
+            book_reservation_time=data["book_reservation_time"],
+            book_reservation_location=data["book_reservation_location"],
         )
         db.session.add(book)
         db.session.commit()
-        return jsonify({'message': 'Book created successfully'}), 201
+        return jsonify({"message": "Book created successfully"}), 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 400
+        return jsonify({"error": str(e)}), 400
 
-@app.route('/books/<book_id>', methods=['GET'])
+
+@app.route("/books/<book_id>", methods=["GET"])
 def get_book(book_id):
     """
     获取指定书籍信息的 API 端点。
@@ -754,20 +788,23 @@ def get_book(book_id):
     """
     book = dbBook.query.filter_by(book_id=book_id).first()
     if book:
-        return jsonify({
-            'book_id': book.book_id,
-            'book_name': book.book_name,
-            'book_image': book.book_image,
-            'book_author': book.book_author,
-            'book_location': book.book_location,
-            'book_score': book.book_score,
-            'book_storage': book.book_storage,
-            'book_reservation_time': book.book_reservation_time,
-            'book_reservation_location': book.book_reservation_location
-        })
-    return jsonify({'message': 'Book not found'}), 404
+        return jsonify(
+            {
+                "book_id": book.book_id,
+                "book_name": book.book_name,
+                "book_image": book.book_image,
+                "book_author": book.book_author,
+                "book_location": book.book_location,
+                "book_score": book.book_score,
+                "book_storage": book.book_storage,
+                "book_reservation_time": book.book_reservation_time,
+                "book_reservation_location": book.book_reservation_location,
+            }
+        )
+    return jsonify({"message": "Book not found"}), 404
 
-@app.route('/books/<book_id>', methods=['PUT'])
+
+@app.route("/books/<book_id>", methods=["PUT"])
 def update_book(book_id):
     """
     更新指定书籍信息的 API 端点。
@@ -798,9 +835,10 @@ def update_book(book_id):
     data = request.get_json()
     dbBook.query.filter_by(book_id=book_id).update(data)
     db.session.commit()
-    return jsonify({'message': 'Book updated successfully'})
+    return jsonify({"message": "Book updated successfully"})
 
-@app.route('/books/<book_id>', methods=['DELETE'])
+
+@app.route("/books/<book_id>", methods=["DELETE"])
 def delete_book(book_id):
     """
     删除指定书籍的 API 端点。
@@ -821,8 +859,9 @@ def delete_book(book_id):
     if book:
         db.session.delete(book)
         db.session.commit()
-        return jsonify({'message': 'Book deleted successfully'})
-    return jsonify({'message': 'Book not found'}), 404
+        return jsonify({"message": "Book deleted successfully"})
+    return jsonify({"message": "Book not found"}), 404
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run(debug=True)

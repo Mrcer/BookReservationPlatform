@@ -1,9 +1,9 @@
 import sqlite3
 
-conn = sqlite3.connect('database.sqlite')
+conn = sqlite3.connect("database.sqlite")
 cursor = conn.cursor()
 
-cursor.execute('''
+cursor.execute("""
     create table Book(
         book_id char(8) primary key,
         book_name char(100),
@@ -15,18 +15,18 @@ cursor.execute('''
         book_reservation_time float,
         book_reservation_location char(100)
     )
-''')
+""")
 
-cursor.execute('''
+cursor.execute("""
     create table StudentAccount(
         net_id char(8) primary key,
         name char(100),
         gain int,
         password char(100)
     )
-    ''')
+    """)
 
-cursor.execute('''
+cursor.execute("""
     create table TeacherAccount(
         net_id char(8) primary key,
         name char(100),
@@ -34,9 +34,9 @@ cursor.execute('''
         gain int,
         password char(100)
     )
-''')
+""")
 
-cursor.execute('''
+cursor.execute("""
     create table AdminAccount(
         net_id char(8) primary key,
         name char(100),
@@ -44,9 +44,9 @@ cursor.execute('''
         real_name char(100),
         password char(100)
     )
-''')
+""")
 
-cursor.execute('''
+cursor.execute("""
     create table Comment(
         net_id char(8),
         book_id char(8),
@@ -55,24 +55,22 @@ cursor.execute('''
         time float,
         primary key(net_id, book_id)
     )
-''')
+""")
 
-cursor.execute('''
+cursor.execute("""
     create table ReservationBook(
         net_id char(8),
         book_id char(8),
         time float,
         primary key(net_id, book_id)
     )
-''')
+""")
 
-cursor.execute('''
+cursor.execute("""
     create table BorrowBook(
         net_id char(8),
         book_id char(8),
         time float,
         primary key(net_id, book_id)
     )
-''')
-
-
+""")
