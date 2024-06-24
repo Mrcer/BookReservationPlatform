@@ -31,7 +31,7 @@ onMounted(async () => {
         bookName: bookInfo.title,
         bookLocation: reservation.book_location,
         reservationLocation: reservation.reservation_location,
-        reserved_date: reservation.reserved_date,
+        reserved_date: new Date(reservation.reservation_date).toLocaleString(),
       }
       reservations.value.push(data)
     })

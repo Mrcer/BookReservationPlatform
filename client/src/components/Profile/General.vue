@@ -10,7 +10,7 @@ const user = useUserStore()
     <h3>用户名：{{ user.username }}</h3>
     <h3>邮箱：{{ user.email }}</h3>
     <h3>积分：{{ user.credit }}</h3>
-    <h3>注册时间：{{ user.registrationDate }}</h3>
+    <h3>注册时间：{{ new Date(user.registrationDate).toLocaleString() }}</h3>
   </div>
 </template>
 

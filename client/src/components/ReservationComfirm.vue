@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { submitReservation } from '@/service/reservation';
-import { useUserStore } from '@/store';
+import { submitReservation } from '@/service/reservation'
+import { useUserStore } from '@/store'
 import type { BookData } from '@/types'
 import { ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
@@ -15,8 +15,7 @@ const showForm = ref(false)
 const location = ref('')
 const handleConfirm = async () => {
   let message
-  if(user.isLoggedIn) {
-    console.log(user.uid, props.book!.id, location.value)
+  if (user.isLoggedIn) {
     message = await submitReservation(user.uid, props.book!.id, location.value)
       .then((res) => {
         return '预约成功'
@@ -36,21 +35,28 @@ const handleConfirm = async () => {
   })
   isVisible.value = false
 }
-
 </script>
 
 <template>
   <div class="backdrop" v-if="isVisible">
     <div class="container">
       <div style="margin-bottom: 0.5rem">
-        <p style="text-align: center;">您确认要预约位于 </p>
-        <p style="text-align: center;font-weight: bold">{{ book?.location }}</p>
-        <p style="text-align: center;">的<span style="font-weight: bold">《{{ book?.title }}》</span>吗？</p>
+        <p style="text-align: center">您确认要预约位于</p>
+        <p style="text-align: center; font-weight: bold">{{ book?.location }}</p>
+        <p style="text-align: center">
+          的
+          <span style="font-weight: bold">《{{ book?.title }}》</span>
+          吗？
+        </p>
       </div>
       <div>
         <span>请输入预约地点：</span>
-        <el-input style="display: inline;margin-right: 10px;" v-model="location" placeholder="预约地点"></el-input>
-        <el-button style="display: inline;" type="primary" @click="handleConfirm">确认</el-button>
+        <el-input
+          style="display: inline; margin-right: 10px"
+          v-model="location"
+          placeholder="预约地点"
+        ></el-input>
+        <el-button style="display: inline" type="primary" @click="handleConfirm">确认</el-button>
       </div>
     </div>
   </div>
@@ -80,5 +86,4 @@ const handleConfirm = async () => {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 400px;
 }
-
 </style>

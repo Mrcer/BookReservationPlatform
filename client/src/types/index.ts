@@ -43,7 +43,7 @@ export interface ReservationData {
   reservationId: number
   userId: number
   bookId: number
-  reserved_date: string
+  reservation_date: string
   status: ReservationStatus
   book_location: string
   reservation_location: string
