@@ -82,6 +82,11 @@ CREATE TABLE Score (
 )
 ''')
 
+# 插入不同角色的用户
+cursor.execute(''' INSERT INTO users (username, password, email, role) VALUES ('student_user', 'password123', 'student@example.com', 'student') ''')
+cursor.execute(''' INSERT INTO users (username, password, email, role) VALUES ('teacher_user', 'password123', 'teacher@example.com', 'teacher') ''')
+cursor.execute(''' INSERT INTO users (username, password, email, role) VALUES ('admin_user', 'password123', 'admin@example.com', 'admin') ''')
+
 book_pth = 'app/utils/books/book_information.txt'
 f = open(book_pth, 'r', encoding='utf-8')
 lines = f.readlines()
