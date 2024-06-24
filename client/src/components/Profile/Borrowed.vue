@@ -1,16 +1,26 @@
 <script setup lang="ts">
+import { getBorrowed } from '@/service/book'
+import { useUserStore } from '@/store'
 import type { BookData, ReservationData } from '@/types'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
-// TODO: get data from server
-const bookName = ref<string[]>(['《三体》', '《三体II：死神永生》', '《三体III：死神来了》'])
+const bookNames = ref<string[]>([])
+
+onMounted(async () => {
+  let user = useUserStore()
+  const res = await getBorrowed(user.uid).catch((error) => {
+    console.log(error.response.data.error)
+    return []
+  })
+  res.forEach((item) => bookNames.value.push(item.title))
+})
 </script>
 
 <template>
   <div class="warpper">
-    <h2 v-if="bookName.length === 0">~空空如也~</h2>
+    <h2 v-if="bookNames.length === 0">~空空如也~</h2>
     <ul>
-      <li v-for="(name, index) in bookName" :key="index">{{ name }}</li>
+      <li v-for="(name, index) in bookNames" :key="index">{{ name }}</li>
     </ul>
   </div>
 </template>
