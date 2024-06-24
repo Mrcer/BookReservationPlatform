@@ -3,9 +3,10 @@ import { userUrl } from './api'
 import type { UserInfo, UserRole } from '@/types'
 import { useUserStore } from '@/store'
 
-interface dbUser {
-  userId: number
+export interface dbUser {
+  user_id: number
   username: string
+  password: string
   email: string
   points: number
   registration_date: string
@@ -43,7 +44,14 @@ const login = async (username: string, password: string) => {
 
 // 查看用户信息
 const getUserInfo = async (userId: number) => {
-  let req = service.get<dbUser>(userUrl.info(userId))
+  let req = service.get<{
+    userId: number
+    username: string
+    email: string
+    points: number
+    registration_date: string
+    role: UserRole
+  }>(userUrl.info(userId))
   let serverData = (await req).data
   let result: UserInfo = {
     id: serverData.userId,
