@@ -23,25 +23,13 @@ const register = (username: string, password: string, email: string, role: UserR
 }
 
 // 用户登录
-const login = (username: string, password: string) => {
-  let userStore = useUserStore()
-  service
-    .post(userUrl.login, {
-      username,
-      password,
-    })
-    .then((res) => {
-      if (res.data.status === 200) {
-        userStore.isLoggedIn = true
-        userStore.uid = res.data.value.userId
-        userStore.username = res.data.username
-      } else if (res.data.status === 400) {
-        alert(res.data.error)
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+const login = async (username: string, password: string) => {
+  let req = service.post<{
+    token: string,
+    userId: number,
+    role: UserRole}>(userUrl.login, {username,password})
+  let serverData = (await req).data
+  return serverData
 }
 
 // 查看用户信息
