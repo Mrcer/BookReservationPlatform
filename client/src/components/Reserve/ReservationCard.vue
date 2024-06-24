@@ -17,7 +17,7 @@ const props = defineProps<{
       送到
       <span class="highlight reservation-location">{{ props.reservationLocation }}</span>
     </p>
-    <p style="text-align: right">发布时间：{{ props.reservationTime }}</p>
+    <p style="text-align: right">发布时间：{{ new Date(props.reservationTime).toLocaleString() }}</p>
   </el-card>
 </template>
 
