@@ -36,13 +36,13 @@ export interface CommentData {
 }
 
 export interface ReservationData {
-  reservation_id: number
-  user_id: number
-  book_id: number
+  reservationId: number
+  userId: number
+  bookId: number
   reserved_date: string
   status: ReservationStatus
-  book_locaion: string
-  reservation_locaion: string
+  book_location: string
+  reservation_location: string
 }
 
 export enum ReservationStatus {

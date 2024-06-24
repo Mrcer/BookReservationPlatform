@@ -21,12 +21,13 @@ const bookUrl = {
 
 const reservationUrl = {
   submit: '/api/reservations',
-  getStatus: (rid: number) => `/api/reservations/${rid}`,
+  get: (rid: number) => `/api/reservations/${rid}`,
   getAllComfirmed: '/api/reservations/confirmed',
   getUserReservations: (uid: number) => `/api/reservations/users/${uid}`,
   cancel: (rid: number) => `/api/reservations/${rid}/cancel`,
-  modify: (rid: number) => `/api/reservations/${rid}`,
+  update: (rid: number) => `/api/reservations/${rid}`,
   delete: (rid: number) => `/api/reservations/${rid}`,
+  complete: (rid: number) => `/api/reservations/${rid}/complete`,
 }
 
 const activityUrl = {
