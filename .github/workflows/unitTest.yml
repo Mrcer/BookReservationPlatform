@@ -24,7 +24,7 @@ jobs:
 
     - name: Run Backend Tests
       run: |
-        python -m unittest discover -s server/tests -p '*_test.py'  # 调整路径和模式以匹配你的测试文件
+        python -m unittest discover -s server/tests -p 'test_*.py'  # 调整路径和模式以匹配你的测试文件
 
   # 前端 Vitest 测试
   frontend-tests:
