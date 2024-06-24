@@ -1,4 +1,6 @@
 import sqlite3
+from datetime import datetime
+from werkzeug.security import generate_password_hash
 
 conn = sqlite3.connect('database.sqlite')
 cursor = conn.cursor()
@@ -81,10 +83,16 @@ CREATE TABLE Score (
 )
 ''')
 
-# 插入不同角色的用户
-cursor.execute(''' INSERT INTO users (username, password, email, role) VALUES ('student_user', 'password123', 'student@example.com', 'student') ''')
-cursor.execute(''' INSERT INTO users (username, password, email, role) VALUES ('teacher_user', 'password123', 'teacher@example.com', 'teacher') ''')
-cursor.execute(''' INSERT INTO users (username, password, email, role) VALUES ('admin_user', 'password123', 'admin@example.com', 'admin') ''')
+# 生成密码哈希
+hashed_password = generate_password_hash('password123')
+
+# 插入不同角色的用户，使用哈希后的密码
+cursor.execute('''INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)''',
+               ('student_user', hashed_password, 'student@example.com', 'student'))
+cursor.execute('''INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)''',
+               ('teacher_user', hashed_password, 'teacher@example.com', 'teacher'))
+cursor.execute('''INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)''',
+               ('admin_user', hashed_password, 'admin@example.com', 'admin'))
 
 book_pth = 'app/utils/books/book_information.txt'
 f = open(book_pth, 'r', encoding='utf-8')
