@@ -1,0 +1,1 @@
+reservation_points = 1
