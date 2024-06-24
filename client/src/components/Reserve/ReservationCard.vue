@@ -3,6 +3,7 @@ const props = defineProps<{
   bookName: string
   bookLocation: string
   reservationLocation: string
+  reservationTime: string
 }>()
 </script>
 
@@ -16,7 +17,7 @@ const props = defineProps<{
       送到
       <span class="highlight reservation-location">{{ props.reservationLocation }}</span>
     </p>
-    <p style="text-align: right">发布时间：2022-01-01</p>
+    <p style="text-align: right">发布时间：{{ props.reservationTime }}</p>
   </el-card>
 </template>
 
