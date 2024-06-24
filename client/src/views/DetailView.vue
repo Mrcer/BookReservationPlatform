@@ -7,13 +7,20 @@ const route = useRoute()
 </script>
 
 <template>
-  <div>
-    <h1>书籍详情页</h1>
-    <p>当前书籍的id是：{{ route.params.id }}</p>
-    <Detail :book_id="parseInt(route.params.id[0])" />
-    <CommentInput :book_id="parseInt(route.params.id[0])" />
-    <CommentList :book_id="parseInt(route.params.id[0])" />
+  <div class="main">
+    <div>
+      <Detail :book_id="parseInt(route.params.id[0])" style="margin-bottom: 4rem;" />
+      <CommentInput :book_id="parseInt(route.params.id[0])" style="margin-bottom: 2rem;" />
+      <CommentList :book_id="parseInt(route.params.id[0])" />
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6rem;
+}
+</style>
