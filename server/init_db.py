@@ -1,5 +1,4 @@
 import sqlite3
-from datetime import datetime
 
 conn = sqlite3.connect('database.sqlite')
 cursor = conn.cursor()
@@ -97,7 +96,7 @@ for i in range(0, len(lines), 9):
     book_image = open(book_image, 'rb').read()
     author = lines[i+2].split(' ')[2].strip()
     publisher = lines[i+3].split(' ')[2].strip()
-    publish_date = datetime.fromisoformat(lines[i+4].split(' ')[2].strip())
+    publish_date = lines[i+4].split(' ')[2].strip()
     isbn = lines[i+5].split(' ')[2].strip()
     status = lines[i+6].split(' ')[2].strip()
     location = lines[i+7].split(' ')[2].strip()
