@@ -16,6 +16,7 @@ export const useUserStore = defineStore('User', {
   actions: {
     async login(username: string, password: string) {
       let loginRes = await loginApi(username, password)
+      this.isLoggedIn = true
       this.uid = loginRes.userId
       this.username = username
       this.role = loginRes.role

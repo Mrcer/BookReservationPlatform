@@ -17,7 +17,7 @@ const userStore = useUserStore()
         </el-icon>
       </RouterLink>
       <el-menu class="menu" mode="horizontal" router text-color="#fff" active-text-color="#fff">
-        <el-menu-item index="reserve">预约板块</el-menu-item>
+        <el-menu-item index="reserve" v-if="userStore.isLoggedIn">预约板块</el-menu-item>
         <el-menu-item index="profile" v-if="userStore.isLoggedIn">用户主页</el-menu-item>
         <!-- TODO: admin auth -->
         <el-menu-item index="admin" v-if="false">管理页面</el-menu-item>

@@ -37,21 +37,7 @@ service.interceptors.response.use(
       console.error('无法连接服务器')
       return Promise.reject(error)
     }
-    console.log('error' + error.response.status)
-    switch (error.response.status) {
-      case 401:
-        console.error('请重新登录')
-        break
-      case 404:
-        console.error('当前路径有误')
-        break
-      case 500:
-        console.error('服务器连接失败 请稍后再试')
-        break
-      default:
-        console.error('未知错误')
-        break
-    }
+    console.log('[service error]: ' + error.response.status)
     return Promise.reject(error)
   }
 )
