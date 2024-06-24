@@ -81,6 +81,23 @@ CREATE TABLE Score (
 )
 ''')
 
+book_pth = 'app/utils/books/book_information.txt'
+f = open(book_pth, 'r', encoding='utf-8')
+lines = f.readlines()
+
+for i in range(0, len(lines), 9):
+    title = lines[i].split(' ')[2].strip()
+    book_image = lines[i+1].split(' ')[2].strip()
+    book_image = open(book_image, 'rb').read()
+    author = lines[i+2].split(' ')[2].strip()
+    publisher = lines[i+3].split(' ')[2].strip()
+    publish_date = datetime.fromisoformat(lines[i+4].split(' ')[2].strip())
+    isbn = lines[i+5].split(' ')[2].strip()
+    status = lines[i+6].split(' ')[2].strip()
+    location = lines[i+7].split(' ')[2].strip()
+    cursor.execute('INSERT INTO Book(title, book_image, author, publisher, publish_date, isbn, status, location) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', (title, book_image, author, publisher, publish_date, isbn, status, location))
+    conn.commit()
+
 # 提交事务
 conn.commit()
 
