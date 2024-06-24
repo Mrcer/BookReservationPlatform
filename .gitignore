@@ -1,3 +1,2 @@
 *.sqlite
-server/__pycache__/*
-server/tests/__pycache__/*
+server/**/__pycache__/*
