@@ -4,75 +4,87 @@ conn = sqlite3.connect('database.sqlite')
 cursor = conn.cursor()
 
 cursor.execute('''
-    create table Book(
-        book_id char(8) primary key,
-        book_name char(100),
-        book_image blob,
-        book_author char(100),
-        book_location char(100),
-        book_score float,
-        book_storage char(50),
-        book_reservation_time float,
-        book_reservation_location char(100)
-    )
+CREATE TABLE users (
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    points INT DEFAULT 0,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    role TEXT CHECK(role IN ('student', 'teacher', 'admin')) NOT NULL
+)
 ''')
 
 cursor.execute('''
-    create table StudentAccount(
-        net_id char(8) primary key,
-        name char(100),
-        gain int,
-        password char(100)
-    )
-    ''')
-
-cursor.execute('''
-    create table TeacherAccount(
-        net_id char(8) primary key,
-        name char(100),
-        real_name char(100),
-        gain int,
-        password char(100)
-    )
+CREATE TABLE Book (
+    book_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title VARCHAR(255) NOT NULL,
+    book_image BLOB,
+    author VARCHAR(100) NOT NULL,
+    publisher VARCHAR(100) NOT NULL,
+    publish_date DATE NOT NULL,
+    isbn VARCHAR(20) NOT NULL,
+    location VARCHAR(50) NOT NULL,
+    status TEXT CHECK(status IN ('available', 'reserved', 'borrowed', 'damaged')) NOT NULL,
+    reservation_count INT DEFAULT 0,
+    borrower_id INT
+)
 ''')
 
 cursor.execute('''
-    create table AdminAccount(
-        net_id char(8) primary key,
-        name char(100),
-        gain int,
-        real_name char(100),
-        password char(100)
-    )
+CREATE TABLE Reservation (
+    reservation_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INT,
+    book_id INT,
+    reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status TEXT CHECK(status IN ('confirmed', 'cancelled', 'completed', 'failed')) NOT NULL,
+    book_location VARCHAR(50) NOT NULL,
+    reservation_location VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(user_id),
+    FOREIGN KEY (book_id) REFERENCES Book(book_id)
+)
 ''')
 
 cursor.execute('''
-    create table Comment(
-        net_id char(8),
-        book_id char(8),
-        comment char(1000),
-        score int,
-        time float,
-        primary key(net_id, book_id)
-    )
+CREATE TABLE Activity (
+    activity_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
+    location VARCHAR(100) NOT NULL,
+    link VARCHAR(255)
+)
 ''')
 
 cursor.execute('''
-    create table ReservationBook(
-        net_id char(8),
-        book_id char(8),
-        time float,
-        primary key(net_id, book_id)
-    )
+CREATE TABLE Review (
+    review_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INT,
+    book_id INT,
+    content TEXT NOT NULL,
+    rating INT CHECK(rating >= 1 AND rating <= 5),
+    review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES User(user_id),
+    FOREIGN KEY (book_id) REFERENCES Book(book_id)
+)
 ''')
 
 cursor.execute('''
-    create table BorrowBook(
-        net_id char(8),
-        book_id char(8),
-        time float,
-        primary key(net_id, book_id)
-    )
+CREATE TABLE Score (
+    score_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INT,
+    points INT NOT NULL,
+    change_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    description VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+)
 ''')
 
+# 提交事务
+conn.commit()
 
+# 关闭数据库连接
+conn.close()
+
+print("数据库初始化完成，数据已插入。")

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { login } from '../../service/user'
 import { useUserStore } from '../../store/index'
 
 const userStore = useUserStore()
@@ -11,8 +10,10 @@ const loginForm = ref({
 })
 
 const handleLogin = () => {
-  login(loginForm.value.username, loginForm.value.password)
-  console.log(userStore.isLoggedIn, userStore.uid, userStore.username)
+  let res = userStore.login(loginForm.value.username, loginForm.value.password)
+  res.catch((err) => {
+    alert('登录失败')
+  })
 }
 </script>
 
