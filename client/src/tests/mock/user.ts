@@ -21,9 +21,9 @@ export const loginResult = Mock.mock(import.meta.env.VITE_API_URL + userUrl.logi
 
 export const getUserInfo = Mock.mock(import.meta.env.VITE_API_URL + userUrl.info(1), 'get', {
   userId: 1,
-  username: "Tim",
-  email: "tim@example.com",
+  username: 'Tim',
+  email: 'tim@example.com',
   points: 10,
-  registration_data: "2077-01-01T00:00:00.000Z",
-  role: UserRole.Student  
+  registration_data: '2077-01-01T00:00:00.000Z',
+  role: UserRole.Student,
 })

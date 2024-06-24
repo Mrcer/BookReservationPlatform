@@ -1,47 +1,53 @@
 <script setup lang="ts">
 import ReservationCard from '@/components/Reserve/ReservationCard.vue'
 import { getAllConfirmedReservations } from '@/service/reservation'
-import { getInfo } from '@/service/book';
-import { useUserStore } from '@/store';
-import type { ReservationData } from '@/types';
-import { onMounted, ref } from 'vue';
+import { getInfo } from '@/service/book'
+import { useUserStore } from '@/store'
+import type { ReservationData } from '@/types'
+import { onMounted, ref } from 'vue'
 
 const isLoaded = ref(false)
-const reservationCardData = ref<{
-  reservationId: number
-  bookName: string
-  bookLocation: string
-  reservationLocation: string
-  reservationTime: string
-}[]>([])
+const reservationCardData = ref<
+  {
+    reservationId: number
+    bookName: string
+    bookLocation: string
+    reservationLocation: string
+    reservationTime: string
+  }[]
+>([])
 
 onMounted(async () => {
   const user = useUserStore()
-  if(!user.isLoggedIn) {
+  if (!user.isLoggedIn) {
     console.log('User not logged in')
     return
   }
-  let reservationsData: ReservationData[] = await getAllConfirmedReservations(user.uid)
-    .catch((error) => {
+  let reservationsData: ReservationData[] = await getAllConfirmedReservations(user.uid).catch(
+    (error) => {
       console.log(error.response.data.error)
       isLoaded.value = true
       return []
-    })
-  Promise.all(reservationsData.map(async (reservation) => {
-    let bookInfo = await getInfo(reservation.bookId)
-    let data = {
-      reservationId: reservation.reservationId,
-      bookName: bookInfo.title,
-      bookLocation: reservation.book_location,
-      reservationLocation: reservation.reservation_location,
-      reservationTime: reservation.reserved_date
     }
-    reservationCardData.value.push(data)
-  }))
-  reservationsData.sort((a, b) => new Date(a.reserved_date).getTime() - new Date(b.reserved_date).getTime())
+  )
+  Promise.all(
+    reservationsData.map(async (reservation) => {
+      let bookInfo = await getInfo(reservation.bookId)
+      let data = {
+        reservationId: reservation.reservationId,
+        bookName: bookInfo.title,
+        bookLocation: reservation.book_location,
+        reservationLocation: reservation.reservation_location,
+        reservationTime: reservation.reserved_date,
+      }
+      reservationCardData.value.push(data)
+    })
+  )
+  reservationsData.sort(
+    (a, b) => new Date(a.reserved_date).getTime() - new Date(b.reserved_date).getTime()
+  )
   isLoaded.value = true
 })
-
 </script>
 
 <template>
@@ -50,13 +56,14 @@ onMounted(async () => {
     <div class="container" v-else>
       <div v-if="reservationCardData.length === 0">暂时没有预约记录</div>
       <ul>
-        <ReservationCard 
+        <ReservationCard
           v-for="reservation in reservationCardData"
           :key="reservation.reservationId"
           :bookName="reservation.bookName"
           :bookLocation="reservation.bookLocation"
           :reservationLocation="reservation.reservationLocation"
-          :reservationTime="reservation.reservationTime"/>
+          :reservationTime="reservation.reservationTime"
+        />
       </ul>
     </div>
   </div>

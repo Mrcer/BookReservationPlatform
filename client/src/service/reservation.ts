@@ -3,7 +3,11 @@ import { reservationUrl } from './api'
 import service from './base'
 
 // 提交预约，需要登录
-export const submitReservation = async (uid: number, bookId: number, reservationLocation: string) => {
+export const submitReservation = async (
+  uid: number,
+  bookId: number,
+  reservationLocation: string
+) => {
   let req = await service.post<{
     message: string
     reservationId: number
