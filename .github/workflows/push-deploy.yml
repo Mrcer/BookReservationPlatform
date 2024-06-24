@@ -1,0 +1,68 @@
+name: push and deploy
+
+on: 
+  push:
+    branches:
+    - main
+
+jobs:
+  push-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+        # 检查 client 目录是否存在
+    - name: Check for server directory
+      id: check_client_dir
+      run: |
+        if [ -d "./client" ]; then
+          echo "::set-output name=client_dir_exists::true"
+        else
+          echo "::set-output name=client_dir_exists::false"
+        fi
+
+      # 只有存在时才构建
+    - name: Front build
+      if: steps.check_client_dir.outputs.client_dir_exists == 'true'
+      run: |
+        npm install vite
+        npm run build-only
+      working-directory: client
+      
+        
+    - name: push front end to remote
+      if: steps.check_client_dir.outputs.client_dir_exists == 'true'
+      uses: easingthemes/ssh-deploy@main
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.KEY }}
+        SOURCE: "client/dist/"
+        REMOTE_HOST: ${{ secrets.HOST }}
+        REMOTE_USER: ${{ secrets.USERNAME }}
+        TARGET: "/home/deployuser/BookReservationPlatform/client/dist/"
+
+             # 检查 server 目录是否存在
+    - name: Check for server directory
+      id: check_server_dir
+      run: |
+        if [ -d "./server" ]; then
+          echo "::set-output name=server_dir_exists::true"
+        else
+          echo "::set-output name=server_dir_exists::false"
+        fi
+       
+    - name: push back end to remote
+      if: steps.check_server_dir.outputs.server_dir_exists == 'true'
+      uses: easingthemes/ssh-deploy@main
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.KEY }}
+        SOURCE: "server/"
+        REMOTE_HOST: ${{ secrets.HOST }}
+        REMOTE_USER: ${{ secrets.USERNAME }}
+        TARGET: "/home/deployuser/BookReservationPlatform/server/"
+        EXCLUDE: /server/tests
+    
+      
