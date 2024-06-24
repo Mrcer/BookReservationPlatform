@@ -33,7 +33,17 @@ onUnmounted(() => {
     <h2>Comments</h2>
     <ul>
       <li v-for="comment in comments">
-        {{ comment.content }}
+        <el-row>
+          <h3>
+            <el-col>user-id:{{ comment.user_id }}</el-col>
+            <el-col>time:{{ comment.date }}</el-col>
+            <el-col>
+              <el-rate v-model="comment.rating" show-score text-color="#ff9900" disabled />
+            </el-col>
+          </h3>
+        </el-row>
+        <p>{{ comment.content }}</p>
+        <HR></HR>
       </li>
     </ul>
   </div>
