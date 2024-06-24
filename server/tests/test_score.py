@@ -27,7 +27,7 @@ class ScoreTestCase(unittest.TestCase):
 
     def test_add_score(self):
         response = self.client.post('/api/scores', json={
-            'user_id': self.user_id,
+            'userId': self.user_id,
             'points': 10,
             'description': 'Initial score'
         })
@@ -35,7 +35,7 @@ class ScoreTestCase(unittest.TestCase):
 
     def test_get_scores_by_user(self):
         self.client.post('/api/scores', json={
-            'user_id': self.user_id,
+            'userId': self.user_id,
             'points': 10,
             'description': 'Initial score'
         })
@@ -45,7 +45,7 @@ class ScoreTestCase(unittest.TestCase):
 
     def test_get_scores(self):
         self.client.post('/api/scores', json={
-            'user_id': self.user_id,
+            'userId': self.user_id,
             'points' : 20,
             'description': 'Initial score'
         })
@@ -55,7 +55,7 @@ class ScoreTestCase(unittest.TestCase):
 
     def test_update_score(self):
         response = self.client.post('/api/scores', json={
-            'user_id': self.user_id,
+            'userId': self.user_id,
             'points': 10,
             'description': 'Initial score'
         })
@@ -69,7 +69,7 @@ class ScoreTestCase(unittest.TestCase):
 
     def test_delete_score(self):
         response = self.client.post('/api/scores', json={
-            'user_id': self.user_id,
+            'userId': self.user_id,
             'points': 10,
             'description': 'Initial score'
         })

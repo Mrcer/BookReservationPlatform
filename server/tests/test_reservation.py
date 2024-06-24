@@ -36,8 +36,8 @@ class ReservationTestCase(unittest.TestCase):
 
     def test_add_reservation(self):
         response = self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'reservation_location': 'Online',
         },headers={'Authorization': f'Bearer {self.stu_token}'})
         self.assertEqual(response.status_code, 201)
@@ -52,8 +52,8 @@ class ReservationTestCase(unittest.TestCase):
 
     def test_get_reservation(self):
         response = self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'confirmed',
             'book_location': 'Library',
             'reservation_location': 'Online',
@@ -65,15 +65,15 @@ class ReservationTestCase(unittest.TestCase):
 
     def test_get_all_confirmed_reservations(self):
         self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'confirmed',
             'book_location': 'Library',
             'reservation_location': 'Online',
         },headers={'Authorization': f'Bearer {self.stu_token}'})
         self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'cancelled',
             'book_location': 'Library',
             'reservation_location': 'Online',
@@ -84,15 +84,15 @@ class ReservationTestCase(unittest.TestCase):
 
     def test_get_reservation_by_user(self):
         self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'confirmed',
             'book_location': 'Library',
             'reservation_location': 'Online',
         },headers={'Authorization': f'Bearer {self.stu_token}'})
         self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'cancelled',
             'book_location': 'Library',
             'reservation_location': 'Online',
@@ -103,15 +103,15 @@ class ReservationTestCase(unittest.TestCase):
 
     def test_get_reservation_by_book(self):
         self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'confirmed',
             'book_location': 'Library',
             'reservation_location': 'Online',
         },headers={'Authorization': f'Bearer {self.stu_token}'})
         self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'cancelled',
             'book_location': 'Library',
             'reservation_location': 'Online',
@@ -122,8 +122,8 @@ class ReservationTestCase(unittest.TestCase):
 
     def test_cancel_reservation(self):
         response = self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'confirmed',
             'book_location': 'Library',
             'reservation_location': 'Online',
@@ -134,8 +134,8 @@ class ReservationTestCase(unittest.TestCase):
 
     def test_update_reservation(self):
         response = self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'confirmed',
             'book_location': 'Library',
             'reservation_location': 'Online',
@@ -150,8 +150,8 @@ class ReservationTestCase(unittest.TestCase):
 
     def test_complete_reservation(self):
         response = self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'confirmed',
             'book_location': 'Library',
             'reservation_location': 'Online',
@@ -164,8 +164,8 @@ class ReservationTestCase(unittest.TestCase):
 
     def test_delete_reservation(self):
         response = self.client.post('/api/reservations', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'status': 'confirmed',
             'book_location': 'Library',
             'reservation_location': 'Online',

@@ -219,7 +219,7 @@ class BookTestCase(unittest.TestCase):
 
         book_id = response.json["bookId"]
         response = self.client.put(f'/api/books/{book_id}/borrow', json={
-            'user_id': self.user_id
+            'userId': self.user_id
         }, headers={'Authorization': f'Bearer {self.access_token}'})
 
         self.assertEqual(response.status_code, 200)

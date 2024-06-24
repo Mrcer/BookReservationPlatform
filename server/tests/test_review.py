@@ -37,8 +37,8 @@ class ReviewTestCase(unittest.TestCase):
 
     def test_add_review(self):
         response = self.client.post('/api/reviews', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'content': 'Great book!',
             'rating': 5,
         },headers={'Authorization': f'Bearer {self.stu_token}'})
@@ -46,8 +46,8 @@ class ReviewTestCase(unittest.TestCase):
 
     def test_get_book_rating(self):
         self.client.post('/api/reviews', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'content': 'Great book!',
             'rating': 5,
         }, headers={'Authorization': f'Bearer {self.stu_token}'})
@@ -57,8 +57,8 @@ class ReviewTestCase(unittest.TestCase):
 
     def test_get_reviews(self):
         self.client.post('/api/reviews', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'content': 'Great book!',
             'rating': 5,
         }, headers={'Authorization': f'Bearer {self.stu_token}'})
@@ -68,8 +68,8 @@ class ReviewTestCase(unittest.TestCase):
 
     def test_get_reviews_by_review(self):
         response = self.client.post('/api/reviews', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'content': 'Great book!',
             'rating': 5,
         }, headers={'Authorization': f'Bearer {self.stu_token}'})
@@ -80,8 +80,8 @@ class ReviewTestCase(unittest.TestCase):
 
     def test_get_reviews_by_book(self):
         self.client.post('/api/reviews', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'content': 'Great book!',
             'rating': 5,
         }, headers={'Authorization': f'Bearer {self.stu_token}'})
@@ -91,8 +91,8 @@ class ReviewTestCase(unittest.TestCase):
 
     def test_update_review(self):
         response = self.client.post('/api/reviews', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'content': 'Great book!',
             'rating': 5,
         }, headers={'Authorization': f'Bearer {self.stu_token}'})
@@ -107,8 +107,8 @@ class ReviewTestCase(unittest.TestCase):
 
     def test_delete_review(self):
         response = self.client.post('/api/reviews', json={
-            'user_id': self.user_id,
-            'book_id': self.book_id,
+            'userId': self.user_id,
+            'bookId': self.book_id,
             'content': 'Great book!',
             'rating': 5,
             'authorization': "student"
