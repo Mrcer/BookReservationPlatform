@@ -51,7 +51,7 @@ class ReviewTestCase(unittest.TestCase):
             'content': 'Great book!',
             'rating': 5,
         }, headers={'Authorization': f'Bearer {self.stu_token}'})
-        response = self.client.get(f'/api/reviews/books/{self.book_id}/rating')
+        response = self.client.get(f'/api/books/{self.book_id}/rating')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json["average_rating"], 5.0)
 
@@ -85,7 +85,7 @@ class ReviewTestCase(unittest.TestCase):
             'content': 'Great book!',
             'rating': 5,
         }, headers={'Authorization': f'Bearer {self.stu_token}'})
-        response = self.client.get(f'/api/reviews/books/{self.book_id}/reviews')
+        response = self.client.get(f'/api/books/{self.book_id}/reviews')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json), 1)
 

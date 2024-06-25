@@ -29,7 +29,7 @@ def add_review():
         return jsonify({"message": "Unknown error occured"}), 404
 
 
-@review_bp.route('/reviews/books/<int:book_id>/rating', methods=['GET'])
+@review_bp.route('/books/<int:book_id>/rating', methods=['GET'])
 def get_book_rating(book_id):
     try:
         rating = ReviewService.get_book_rating(book_id)
@@ -64,7 +64,7 @@ def get_reviews_by_review(review_id):
         return jsonify({"message": "Unknown error occured"}), 404
 
 
-@review_bp.route('/reviews/books/<int:book_id>/reviews', methods=['GET'])
+@review_bp.route('/books/<int:book_id>/reviews', methods=['GET'])
 def get_reviews_by_book(book_id):
     reviews = ReviewService.get_reviews_by_book(book_id)
     try:
