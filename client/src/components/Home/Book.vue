@@ -26,7 +26,7 @@ const buttonText = computed(() => {
 <template>
   <el-row class="book-container">
     <el-col :span="4" class="book-img">
-      <el-image :src="book.cover" />
+      <el-image :src="'data:image/jpeg;base64,' + book.cover" />
     </el-col>
     <el-col :span="16">
       <RouterLink data-test="title-link" :to="{ name: 'detail', params: { id: props.book.id } }">
@@ -36,7 +36,17 @@ const buttonText = computed(() => {
       <p data-test="publisher">出版社：{{ props.book.publisher }}</p>
       <p data-test="publishDate">出版日期：{{ props.book.publishDate }}</p>
       <p data-test="isbn">ISBN：{{ props.book.isbn }}</p>
-      <el-rate v-model="props.book.rating" show-score text-color="#ff9900" disabled />
+      <el-rate
+        v-model="props.book.rating"
+        show-score
+        text-color="#ff9900"
+        disabled
+        v-if="props.book.rating != -1"
+      />
+      <div v-else>
+        <el-rate :model-value="0" disabled />
+        <span style="color: #999">暂无评分</span>
+      </div>
     </el-col>
     <el-col :span="4">
       <el-button
@@ -45,7 +55,7 @@ const buttonText = computed(() => {
         type="primary"
         size="large"
         :disabled="!canBeReserved"
-        @click="$emit('reserve', props.book.id)"
+        @click="$emit('reserve')"
       >
         {{ buttonText }}
       </el-button>

@@ -1,9 +1,21 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from '@/store'
+
+const user = useUserStore()
+</script>
 
 <template>
-  <div>
-    <h1>General</h1>
+  <div class="warpper">
+    <h3>id: {{ user.uid }}</h3>
+    <h3>用户名：{{ user.username }}</h3>
+    <h3>邮箱：{{ user.email }}</h3>
+    <h3>积分：{{ user.credit }}</h3>
+    <h3>注册时间：{{ new Date(user.registrationDate).toLocaleString() }}</h3>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.warpper {
+  padding: 20px;
+}
+</style>

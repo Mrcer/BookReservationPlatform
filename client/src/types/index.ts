@@ -20,10 +20,14 @@ export enum BookStatus {
   Damaged = 'damaged',
 }
 
-export interface AtivityData {
-  id: number
+export interface ActivityData {
+  activityId: number
   name: string
   description: string
+  start_time: string
+  end_time: string
+  location: string
+  link: string
 }
 
 export interface CommentData {
@@ -36,11 +40,13 @@ export interface CommentData {
 }
 
 export interface ReservationData {
-  reservation_id: number
-  user_id: number
-  book_id: number
-  reserved_date: string
+  reservationId: number
+  userId: number
+  bookId: number
+  reservation_date: string
   status: ReservationStatus
+  book_location: string
+  reservation_location: string
 }
 
 export enum ReservationStatus {
@@ -52,4 +58,26 @@ export enum ReservationStatus {
 
 export interface SearchQuery {
   keyword: string
+}
+
+export enum UserRole {
+  Student = 'student',
+  Teacher = 'teacher',
+  Admin = 'admin',
+}
+
+export interface RegisterForm {
+  username: string
+  email: string
+  password: string
+  role: UserRole
+}
+
+export interface UserInfo {
+  id: number
+  username: string
+  email: string
+  credit: number
+  registration_date: string
+  role: UserRole
 }

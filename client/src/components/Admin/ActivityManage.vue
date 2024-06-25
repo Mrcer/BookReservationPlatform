@@ -1,7 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h1>You are not authorized to access this page.</h1>
+  <div>
+    <h1>Activity Management</h1>
+    <p>TODO</p>
+  </div>
 </template>
 
 <style scoped></style>

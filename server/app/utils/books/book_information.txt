@@ -1,0 +1,53 @@
+title : 太平洋海空战
+book_image : app/utils/books/image/001.jpg
+author : 王书君
+publisher : 海洋出版社
+publish_date : 1987-01-01
+isbn : 7-5027-6313-9
+status : available
+location : 书海图书馆五楼C区B书架第二层
+
+title : 老人与海
+book_image : app/utils/books/image/002.jpg
+author : 海明威
+publisher : 机械工业出版社
+publish_date : 2008-01-01
+isbn : 978-7-111-21043-6
+status : available
+location : 南图书馆三楼I区F书架第四层
+
+title : 欧阳海之歌　
+book_image : app/utils/books/image/003.jpg
+author : 金敬迈
+publisher : 花城出版社
+publish_date : 1998-01-01
+isbn : 7-5360-2604-8
+status : available
+location : 翰林图书馆五楼E区F书架第五层
+
+title : 海　　
+book_image : app/utils/books/image/004.jpg
+author : 约翰·班维尔(John Banville)
+publisher : 作家出版社
+publish_date : 2007-01-01
+isbn : 978-7-5063-3876-9
+status : available
+location : 翰林图书馆五楼D区B书架第三层
+
+title : 海的女儿
+book_image : app/utils/books/image/005.jpg
+author : 安徒生
+publisher : 内蒙古人民出版社
+publish_date : 2010-01-01
+isbn : 978-7-204-09395-3
+status : available
+location : 书海图书馆三楼A区B书架第三层
+
+title : 海行杂记　
+book_image : app/utils/books/image/006.jpg
+author : 巴金
+publisher : 上海人民出版社
+publish_date : 2008-01-01
+isbn : 978-7-208-08171-0
+status : available
+location : 翰林图书馆二楼C区C书架第五层

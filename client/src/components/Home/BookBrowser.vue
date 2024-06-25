@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import Book from './Book.vue'
-import { getMockBookData } from '@/tests/mock/types/book'
+import type { BookData } from '@/types'
 
-const books = ref([1, 2, 3, 4])
+const props = defineProps<{
+  books: BookData[]
+}>()
+
+defineEmits(['reserve'])
 </script>
 
 <template>
   <div class="container">
     <h1>搜索结果</h1>
-    <div class="result-container" v-for="book in getMockBookData()" :key="book.id">
-      <Book :book="book" />
+    <div class="result-container" v-for="book in props.books" :key="book.id">
+      <Book :book="book" @reserve="$emit('reserve', book)" />
+    </div>
+    <div v-if="props.books.length === 0">
+      <p>没有搜索结果</p>
     </div>
   </div>
 </template>

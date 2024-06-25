@@ -1,17 +1,32 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { userLogin } from '../../service/user'
+
 import { useUserStore } from '../../store/index'
+import { ElMessageBox } from 'element-plus'
+
+const userStore = useUserStore()
+
+const message = ref('')
+
 
 const loginForm = ref({
   username: '',
   password: '',
 })
 
-const handleLogin = () => {
-  const userStore = useUserStore()
-  userLogin(loginForm.value, userStore)
-  console.log(userStore.isLoggedIn, userStore.uid, userStore.username)
+
+const handleLogin = async () => {
+  let res = await userStore
+    .login(loginForm.value.username, loginForm.value.password)
+    .then(() => '登录成功')
+    .catch((err) => '登录失败，请检查用户名或密码')
+  message.value = res
+  ElMessageBox.alert(message.value, '提示', {
+    // if you want to disable its autofocus
+    // autofocus: false,
+    confirmButtonText: 'OK',
+  })
+
 }
 </script>
 
