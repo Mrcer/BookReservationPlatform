@@ -58,8 +58,11 @@ const handleConfirm = async () => {
         ></el-input>
       </div>
       <div>
-      <el-button style="display: inline; margin: 10px;" @click="isVisible = false">取消</el-button>
-      <el-button style="display: inline; margin: 10px;" type="primary" @click="handleConfirm">确认</el-button></div>
+        <el-button style="display: inline; margin: 10px" @click="isVisible = false">取消</el-button>
+        <el-button style="display: inline; margin: 10px" type="primary" @click="handleConfirm">
+          确认
+        </el-button>
+      </div>
     </div>
   </div>
 </template>

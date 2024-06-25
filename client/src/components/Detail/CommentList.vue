@@ -12,16 +12,20 @@ const shouldFetchComments = ref(true)
 const intervalId = setInterval(() => {
   shouldFetchComments.value = true // 每隔 30 秒设置 shouldFetchComments 为 true
 }, 30000)
-watch(shouldFetchComments, (flag, pre_flag) => {
-  if (flag) {
-    console.log('Fetching...')
-    shouldFetchComments.value = false
-    getComments(props.book_id).then((res) => {
-      console.log(res)
-      comments.value = res
-    })
-  }
-}, { immediate: true })
+watch(
+  shouldFetchComments,
+  (flag, pre_flag) => {
+    if (flag) {
+      console.log('Fetching...')
+      shouldFetchComments.value = false
+      getComments(props.book_id).then((res) => {
+        console.log(res)
+        comments.value = res
+      })
+    }
+  },
+  { immediate: true }
+)
 // 在组件销毁时清除定时器
 onUnmounted(() => {
   clearInterval(intervalId)

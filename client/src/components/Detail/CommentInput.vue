@@ -19,7 +19,12 @@ const placeholder = computed(() => {
   }
 })
 const handleSendComment = async () => {
-  let message = await sendComment({ userId: userStore.uid, bookId: props.book_id, content: textarea.value, rating: rate.value })
+  let message = await sendComment({
+    userId: userStore.uid,
+    bookId: props.book_id,
+    content: textarea.value,
+    rating: rate.value,
+  })
     .then(() => {
       return '评论成功'
     })
@@ -42,9 +47,24 @@ const handleSendComment = async () => {
       <el-rate v-model="rate" show-score text-color="#ff9900" :disabled="disable" />
     </div>
     <div>
-      <el-input v-model="textarea" maxlength="50" style="width: 480px" :rows="3" type="textarea" show-word-limit
-        :placeholder="placeholder" :disabled="disable" />
-      <el-button data-test="reserve-btn" class="reserve-btn" type="primary" size="large" :disabled="disable" @click="handleSendComment">
+      <el-input
+        v-model="textarea"
+        maxlength="50"
+        style="width: 480px"
+        :rows="3"
+        type="textarea"
+        show-word-limit
+        :placeholder="placeholder"
+        :disabled="disable"
+      />
+      <el-button
+        data-test="reserve-btn"
+        class="reserve-btn"
+        type="primary"
+        size="large"
+        :disabled="disable"
+        @click="handleSendComment"
+      >
         {{ '发送' }}
       </el-button>
     </div>

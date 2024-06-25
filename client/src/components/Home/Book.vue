@@ -44,8 +44,9 @@ const buttonText = computed(() => {
         v-if="props.book.rating != -1"
       />
       <div v-else>
-      <el-rate :model-value="0" disabled />
-      <span style="color: #999">暂无评分</span></div>
+        <el-rate :model-value="0" disabled />
+        <span style="color: #999">暂无评分</span>
+      </div>
     </el-col>
     <el-col :span="4">
       <el-button
