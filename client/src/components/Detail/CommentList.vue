@@ -7,7 +7,7 @@ const comments = ref<CommentData[]>([])
 const props = defineProps<{
   book_id: number
 }>()
-const shouldFetchComments = ref(false)
+const shouldFetchComments = ref(true)
 // 创建一个定时器来每隔 30 秒拉取一次评论
 const intervalId = setInterval(() => {
   shouldFetchComments.value = true // 每隔 30 秒设置 shouldFetchComments 为 true
@@ -21,7 +21,7 @@ watch(shouldFetchComments, (flag, pre_flag) => {
       comments.value = res
     })
   }
-})
+}, { immediate: true })
 // 在组件销毁时清除定时器
 onUnmounted(() => {
   clearInterval(intervalId)
@@ -36,14 +36,13 @@ onUnmounted(() => {
         <el-row>
           <h3>
             <el-col>user-id:{{ comment.user_id }}</el-col>
-            <el-col>time:{{ comment.date }}</el-col>
+            <el-col>time:{{ new Date(comment.date).toLocaleString() }}</el-col>
             <el-col>
               <el-rate v-model="comment.rating" show-score text-color="#ff9900" disabled />
             </el-col>
           </h3>
         </el-row>
         <p>{{ comment.content }}</p>
-        <HR></HR>
       </li>
     </ul>
   </div>

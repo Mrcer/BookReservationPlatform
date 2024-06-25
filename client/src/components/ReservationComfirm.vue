@@ -56,8 +56,10 @@ const handleConfirm = async () => {
           v-model="location"
           placeholder="预约地点"
         ></el-input>
-        <el-button style="display: inline" type="primary" @click="handleConfirm">确认</el-button>
       </div>
+      <div>
+      <el-button style="display: inline; margin: 10px;" @click="isVisible = false">取消</el-button>
+      <el-button style="display: inline; margin: 10px;" type="primary" @click="handleConfirm">确认</el-button></div>
     </div>
   </div>
 </template>

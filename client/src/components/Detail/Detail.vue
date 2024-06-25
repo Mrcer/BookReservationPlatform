@@ -1,26 +1,24 @@
 <script setup lang="ts">
 import { BookStatus, type BookData } from '@/types'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { getInfo } from '@/service/book'
 
 const props = defineProps<{
-  book_id: number
+  book: BookData
 }>()
-const book = ref<BookData>({} as BookData)
-getInfo(props.book_id).then((res) => {
-  book.value = res
-  console.log(res)
-})
+
+defineEmits(['reserve'])
+
 const canBeReserved = computed(() => {
-  return book.value.status == BookStatus.Available || book.value.status == BookStatus.Reserved
+  return props.book.status == BookStatus.Available || props.book.status == BookStatus.Reserved
 })
 
 const buttonText = computed(() => {
   if (canBeReserved.value) {
     return '预约'
-  } else if (book.value.status == BookStatus.Borrowed) {
+  } else if (props.book.status == BookStatus.Borrowed) {
     return '已借出'
-  } else if (book.value.status == BookStatus.Damaged) {
+  } else if (props.book.status == BookStatus.Damaged) {
     return '无法借阅'
   }
 })
@@ -29,31 +27,18 @@ const buttonText = computed(() => {
 <template>
   <el-row class="book-detail">
     <el-col :span="16">
-      <h1>{{ book.title }}</h1>
-      <p data-test="author">作者：{{ book.author }}</p>
-      <p data-test="publisher">出版社：{{ book.publisher }}</p>
-      <p data-test="publishDate">出版日期：{{ book.publishDate }}</p>
-      <p data-test="isbn">ISBN：{{ book.isbn }}</p>
-      <el-rate
-        v-model="book.rating"
-        show-score
-        text-color="#ff9900"
-        disabled
-        v-if="book.rating != -1"
-      />
+      <h1>{{ props.book.title }}</h1>
+      <p data-test="author">作者：{{ props.book.author }}</p>
+      <p data-test="publisher">出版社：{{ props.book.publisher }}</p>
+      <p data-test="publishDate">出版日期：{{ props.book.publishDate }}</p>
+      <p data-test="isbn">ISBN：{{ props.book.isbn }}</p>
+      <el-rate v-model="props.book.rating" show-score text-color="#ff9900" disabled v-if="props.book.rating != -1" />
       <div v-else>
         <el-rate :model-value="0" disabled />
         <span style="color: #999">暂无评分</span>
       </div>
-      <el-button
-        data-test="reserve-btn"
-        class="reserve-btn"
-        type="primary"
-        size="large"
-        style="display: block"
-        :disabled="!canBeReserved"
-        @click="$emit('reserve', book.id)"
-      >
+      <el-button data-test="reserve-btn" class="reserve-btn" type="primary" size="large" style="display: block"
+        :disabled="!canBeReserved" @click="$emit('reserve')">
         {{ buttonText }}
       </el-button>
     </el-col>
